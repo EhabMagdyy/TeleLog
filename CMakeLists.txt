@@ -1,13 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(LogTelemetrySystem)
+project(TeleLog)
 
-add_executable(
-    ${PROJECT_NAME}
-    src/LogManager.cpp
-    src/ConsoleSinkImpl.cpp
-    src/FileSinkImpl.cpp
-    src/LogMessage.cpp
-    app/main.cpp
-)
-
-target_include_directories(${PROJECT_NAME} PRIVATE inc/)
+add_subdirectory(src)
+add_subdirectory(app)
