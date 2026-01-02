@@ -2,14 +2,15 @@
 #include "LogMessage.hpp"
 #include "ILogSink.hpp"
 #include <vector>
+#include <memory>
 
 class LogManager{
     std::vector<LogMessage> logs;
-    std::vector<ILogSink> sinks;
+    std::vector<std::unique_ptr<ILogSink>> sinks;
 public:
     LogManager() = default;
     ~LogManager() = default;
     void addLog(const LogMessage& log);
-    void addSink(const ILogSink& sink);
+    void addSink(std::unique_ptr<ILogSink> sink);
     void routeLogsForAllSinks();
 };

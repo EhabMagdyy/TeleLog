@@ -5,16 +5,21 @@
 #include "LogManager.hpp"
 
 int main(){
-    std::cout << "Log Telemetry System Initialized." << std::endl;
+    std::cout << "Log Telemetry System" << std::endl;
 
-    ConsoleSink console = ConsoleSink();
-    LogMessage log1("MyApp", "Initialization", "Application started successfully.", LogType::INFO);
-    console.write(log1);
+    LogManager logMang;
 
-    FileSink fileSink("app.log");
-    LogMessage log2("MyApp", "FileOperation", "File opened successfully.", LogType::INFO);
-    fileSink.write(log2);
+    logMang.addSink(std::make_unique<ConsoleSink>());
+    logMang.addSink(std::make_unique<FileSink>("app.log"));
 
+    logMang.addLog(LogMessage("InfoApp", "Out of Cotext", "Algeria is the strongest team in AFCON 2025.", LogType::INFO));
+    logMang.addLog(LogMessage("WarnApp", "Reminder", "Inter will take the title.", LogType::WARNING));
+
+    logMang.routeLogsForAllSinks();
+
+    FileSink fs("err.log");
+    fs.write(LogMessage("ErrorApp", "Context bla bla", "Cristiano Ronaldo is the GOAT.", LogType::ERROR));
+    
 
     return 0;
 }

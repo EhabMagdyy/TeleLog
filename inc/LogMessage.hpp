@@ -16,7 +16,7 @@ public:
     std::string message;
     LogType severity;
 
-    LogMessage(const std::string& app, const std::string& cntxt, const std::string& msg, LogType sev);
+    LogMessage(const std::string& app, const std::string& cntxt, const std::string& msg, LogType sev, std::chrono::system_clock::time_point timestamp = std::chrono::system_clock::now());
     ~LogMessage() = default;
 
     std::string getLogTypeString(LogType& severity) const;
