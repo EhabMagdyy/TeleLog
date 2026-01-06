@@ -1,7 +1,7 @@
 # Telemetry & Logging System (TeleLog)
 
 ## System Architecture
-
+![](./diagrams/diagram.png)
 
 ---
 
