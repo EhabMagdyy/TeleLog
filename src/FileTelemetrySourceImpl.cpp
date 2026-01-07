@@ -1,7 +1,8 @@
 #include "FileTelemetrySourceImpl.hpp"
+#include <sstream>
 
 bool FileTelemetrySourceImpl::openSource(){
-    file.emplace("source.txt"); // Initialize the optional with SafeFile
+    file.emplace("/proc/stat"); // Initialize the optional with SafeFile
     if(file->getFD() == -1){
         return false;
     }
@@ -9,14 +10,27 @@ bool FileTelemetrySourceImpl::openSource(){
 }
 
 bool FileTelemetrySourceImpl::readSource(std::string& out){
-    int noOfCharsRead = 0;
-    out.resize(10);
-    // out.data() is a pointer to internal data. It is undefined to modify the contents through the returned pointer.
-    // To get a pointer that allows modifying the contents use &str[0] instead, (or in C++17 the non-const str.data() overload).
-    noOfCharsRead = read(file->getFD(), out.data(), 10);    // C++17
-    if(noOfCharsRead <= 0){
+    char buffer[256] = {0};
+    ssize_t dataBytes = read(file->getFD(), buffer, sizeof(buffer)-1);
+    if(dataBytes <= 0){
         return false;
     }
-    out.resize(noOfCharsRead);
+
+    buffer[dataBytes] = '\0';
+    std::string line(buffer);
+
+    // Parse first line for CPU usage
+    std::istringstream iss(line);
+    std::string cpuLabel;
+    unsigned long user, nice, system, idle;
+
+    iss >> cpuLabel >> user >> nice >> system >> idle;
+    if(cpuLabel != "cpu") return false;
+
+    unsigned long total = user + nice + system + idle;
+    double cpuUsage = 100.0 * (user + nice + system) / total;
+
+    out = std::to_string(cpuUsage);
+
     return true;
 }
