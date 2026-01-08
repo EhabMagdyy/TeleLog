@@ -20,6 +20,7 @@ int main(){
     }
     std::string fileData;
     if(source.readSource(fileData)){
+        fileData.push_back('%');
         LogType type = LogType::INFO;
         double cpuUsage = 0.0;
         try {
@@ -37,13 +38,13 @@ int main(){
     }
     std::string socketData;
     if(socketSource.readSource(socketData)){
+        socketData.push_back('%');
         LogType type = LogType::INFO;
-
         double cpuUsage = 0.0;
         try {
             cpuUsage = std::stod(socketData);
         } catch(...) { cpuUsage = 0.0; }
-        if(cpuUsage > 750.0) type = LogType::WARNING;
+        if(cpuUsage > 75.0) type = LogType::WARNING;
 
         logMang.addLog(LogMessage("SysMonitor", "Memory Usage", socketData, type));
     }

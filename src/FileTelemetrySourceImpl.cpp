@@ -2,7 +2,7 @@
 #include <sstream>
 
 bool FileTelemetrySourceImpl::openSource(){
-    file.emplace("/proc/stat"); // Initialize the optional with SafeFile
+    file.emplace(TELEMETRY_FILE_PATH);
     if(file->getFD() == -1){
         return false;
     }
@@ -10,27 +10,12 @@ bool FileTelemetrySourceImpl::openSource(){
 }
 
 bool FileTelemetrySourceImpl::readSource(std::string& out){
-    char buffer[256] = {0};
-    ssize_t dataBytes = read(file->getFD(), buffer, sizeof(buffer)-1);
+    out.resize(128);
+    int dataBytes = read(file->getFD(), out.data(), out.size());
     if(dataBytes <= 0){
         return false;
     }
-
-    buffer[dataBytes] = '\0';
-    std::string line(buffer);
-
-    // Parse first line for CPU usage
-    std::istringstream iss(line);
-    std::string cpuLabel;
-    unsigned long user, nice, system, idle;
-
-    iss >> cpuLabel >> user >> nice >> system >> idle;
-    if(cpuLabel != "cpu") return false;
-
-    unsigned long total = user + nice + system + idle;
-    double cpuUsage = 100.0 * (user + nice + system) / total;
-
-    out = std::to_string(cpuUsage);
+    out.resize(dataBytes);
 
     return true;
 }

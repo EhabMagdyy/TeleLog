@@ -2,3 +2,6 @@ build
 *.plantuml
 *.log
 source.txt
+*.out
+*.exe
+file.txt
