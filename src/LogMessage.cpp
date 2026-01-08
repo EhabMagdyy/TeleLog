@@ -7,7 +7,7 @@ LogMessage::LogMessage(const std::string& app, const std::string& cntxt, const s
                         : appName(app), context(cntxt), message(msg), severity(sev), timestamp(timestamp){
 }
 
-std::string LogMessage::getLogTypeString(LogType& severity) const{
+std::string LogMessage::getLogTypeString(LogType severity) const{
     switch(severity){
         case LogType::INFO:         return "INFO";
         case LogType::WARNING:      return "WARNING";
