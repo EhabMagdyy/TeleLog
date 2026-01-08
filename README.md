@@ -50,10 +50,14 @@ Instead of implementing a single class that handles multiple variations of a tas
 | **`LogManager`**          | **Context**                  | Holds references to `ILogSink` and delegates the logging task to the active strategy. |
 
 ### 3. `SafeFile`/`SafeSocket` Classes
-
 - They are purely a RAII wrapper for file descriptors/sockets. Its job is ownership management: open/socket,connect, close, move-only semantics. 
 - It should not implement higher-level logic like reading, that’s the responsibility of the telemetry source classes `FileTelemetrySourceImpl`/`SocketTelemetrySourceImpl`.
 
 ### 4. `std::optional<SafeFile>`
 - Allows delayed initialization, so `FileTelemetrySourceImpl` can have a default constructor, satisfying Rule-of-Zero.
 - `file.emplace("source.txt")`: This constructs in-place and avoids an unnecessary move, used with std::optional
+
+### 5. `noexcept`
+- on move = enables optimizations and fits standard container requirements.
+- Without it, moves might silently degrade into copies in std::vector, std::map, etc.
+- Rule: If your move cannot throw, always mark it noexcept.
