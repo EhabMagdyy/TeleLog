@@ -5,6 +5,11 @@
 
 ---
 
+## Output
+![](./output/phase2.png)
+
+---
+
 ## Notes
 
 ### 1. `std::ostream`
