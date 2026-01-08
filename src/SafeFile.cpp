@@ -1,12 +1,7 @@
 #include "SafeFile.hpp"
-#include <iostream>
 
 SafeFile::SafeFile(const char* path){
     fd = open(path, O_RDONLY);
-    if(fd == -1) {
-        std::cout << "Failed to open file\n";
-        exit(0);
-    }
 }
 SafeFile::~SafeFile(){
     if(fd != -1){

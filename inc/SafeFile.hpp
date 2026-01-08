@@ -5,7 +5,7 @@
 class SafeFile{
     int fd{-1};
 public:
-    SafeFile(const char* path);
+    explicit SafeFile(const char* path);
     ~SafeFile();
     // Delete Copy Constructor & Copy Assignment
     SafeFile(const SafeFile&) = delete;

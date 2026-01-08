@@ -1,2 +1,4 @@
 build
 *.plantuml
+*.log
+source.txt

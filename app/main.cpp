@@ -3,22 +3,26 @@
 #include "LogMessage.hpp"
 #include "FileSinkImpl.hpp"
 #include "LogManager.hpp"
+#include "ITelemetrySource.hpp"
+#include "FileTelemetrySourceImpl.hpp"
 
 int main(){
     std::cout << "Log Telemetry System" << std::endl;
 
-    LogManager logMang;
+   FileTelemetrySourceImpl source;
 
-    logMang.addSink(std::make_unique<ConsoleSink>());
-    logMang.addSink(std::make_unique<FileSink>("app.log"));
+    if(!source.openSource()){
+        std::cerr << "Failed to open source.txt" << std::endl;
+        return 1;
+    }
 
-    logMang.addLog(LogMessage("InfoApp", "Out of Cotext", "Algeria is the strongest team in AFCON 2025.", LogType::INFO));
-    logMang.addLog(LogMessage("WarnApp", "Reminder", "Inter will take the title.", LogType::WARNING));
+    std::string data;
+    // Read multiple times to see how it works
+    while(source.readSource(data)){
+        std::cout << "Read: " << data << std::endl;
+    }
 
-    logMang.routeLogsForAllSinks();
-
-    FileSink fs("err.log");
-    fs.write(LogMessage("ErrorApp", "Context bla bla", "Cristiano Ronaldo is the GOAT.", LogType::ERROR));
+    std::cout << "No more data or error occurred." << std::endl;
     
 
     return 0;
