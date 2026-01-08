@@ -7,6 +7,8 @@
 #include <sstream>
 #include <string>
 
+constexpr const char* SOCKET_PATH = "/home/ehab/Documents/ITI_9Months/CppProject/sokt.sock";
+
 unsigned long parseMemInfo(const std::string& keyToFind) {
     std::ifstream memFile("/proc/meminfo");
     if(!memFile.is_open()) return 0;
@@ -44,7 +46,7 @@ int main() {
         return 1; 
     }
 
-    const char* socketPath = "/home/ehab/Documents/ITI_9Months/CppProject/sokt.sock";
+    const char* socketPath = SOCKET_PATH;
     // Remove old socket file if it exists
     unlink(socketPath);
 
