@@ -17,13 +17,9 @@ int main(){
     }
 
     std::string data;
-    // Read multiple times to see how it works
     while(source.readSource(data)){
         std::cout << "Read: " << data << std::endl;
-    }
-
-    std::cout << "No more data or error occurred." << std::endl;
-    
+    }    
 
     return 0;
 }
