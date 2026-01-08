@@ -9,11 +9,11 @@ SafeFile::~SafeFile(){
     }
 }
 
-SafeFile::SafeFile(SafeFile&& other) : fd(other.fd){
+SafeFile::SafeFile(SafeFile&& other) noexcept : fd(other.fd){
     other.fd = -1;
 }
 
-SafeFile& SafeFile::operator=(SafeFile&& other){
+SafeFile& SafeFile::operator=(SafeFile&& other) noexcept {
     if(this != &other){
         if(fd != -1){
             close(fd);
