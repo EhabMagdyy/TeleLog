@@ -7,7 +7,7 @@
 
 ## Notes
 
- ### 1. `std::ostream`
+### 1. `std::ostream`
 
 `std::ostream` is the **base class for output streams** in C++.
 
@@ -48,3 +48,8 @@ Instead of implementing a single class that handles multiple variations of a tas
 | **`ConsoleSinkImpl.hpp`** | **Concrete Strategy**        | Implements the `write` method to send output specifically to the console. |
 | **`FileSinkImpl.hpp`**    | **Concrete Strategy**        | Implements the `write` method to handle logging to a physical file. |
 | **`LogManager`**          | **Context**                  | Holds references to `ILogSink` and delegates the logging task to the active strategy. |
+
+### 3. `SafeFile`/`SafeSocket` Classes
+
+- They are purely a RAII wrapper for file descriptors/sockets. Its job is ownership management: open/socket,connect, close, move-only semantics. 
+- It should not implement higher-level logic like reading, that’s the responsibility of the telemetry source classes `FileTelemetrySourceImpl`/`SocketTelemetrySourceImpl`.
