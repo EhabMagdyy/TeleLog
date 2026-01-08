@@ -11,8 +11,8 @@ public:
     SafeFile(const SafeFile&) = delete;
     SafeFile& operator=(const SafeFile&) = delete;
 
-    SafeFile(SafeFile&& other);
-    SafeFile& operator=(SafeFile&& other);
+    SafeFile(SafeFile&& other) noexcept;
+    SafeFile& operator=(SafeFile&& other) noexcept;
 
     int getFD();
 };
