@@ -14,7 +14,7 @@ bool SocketTelemetrySourceImpl::openSource(){
     sockaddr_un serverAddr;
     serverAddr.sun_family = AF_UNIX;
     // filesystem path for the socket
-    strncpy(serverAddr.sun_path, "/home/ehab/Documents/ITI_9Months/CppProject/sokt.sock", sizeof(serverAddr.sun_path)-1);
+    strncpy(serverAddr.sun_path, TELEMETRY_SOCKET_PATH, sizeof(serverAddr.sun_path)-1);
     serverAddr.sun_path[sizeof(serverAddr.sun_path)-1] = '\0';
     if(connect(socketfd, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) == -1){
         close(socketfd);
