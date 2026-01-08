@@ -5,6 +5,8 @@ add_library(TeleLogLib
     LogMessage.cpp
     SafeFile.cpp
     FileTelemetrySourceImpl.cpp
+    SafeSocket.cpp
+    SocketTelemetrySourceImpl.cpp
 )
 
 target_include_directories(TeleLogLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../inc)
