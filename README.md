@@ -61,3 +61,25 @@ Instead of implementing a single class that handles multiple variations of a tas
 - on move = enables optimizations and fits standard container requirements.
 - Without it, moves might silently degrade into copies in std::vector, std::map, etc.
 - Rule: If your move cannot throw, always mark it noexcept.
+
+### 6. UNIX Domain Socket
+##### A mechanism for inter-process communication (IPC) on the same host, using the file system namespace instead of network addresses.
+##### Key points:
+- Works only within one machine
+- Uses filesystem paths to identify endpoints, not IP addresses or ports
+- Supports stream (SOCK_STREAM) or datagram (SOCK_DGRAM) semantics
+- Faster than TCP/IP sockets for local IPC (no network stack overhead)
+##### Typical workflow
+- For client-side:
+  - socket(AF_UNIX, SOCK_STREAM, 0) → create socket
+  - connect() → connect to server using sockaddr_un
+  - read() / write() → send/receive data
+  - close() → cleanup
+
+- For server-side:
+  - socket(AF_UNIX, SOCK_STREAM, 0) → create socket
+  - bind() → bind to a path (like /tmp/telemetry.sock)
+  - listen() → listen for clients
+  - accept() → accept connections
+  - read() / write() → communicate
+  - close() → cleanup
