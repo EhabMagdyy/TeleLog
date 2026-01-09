@@ -88,3 +88,18 @@ Instead of implementing a single class that handles multiple variations of a tas
   - accept() → accept connections
   - read() / write() → communicate
   - close() → cleanup
+
+### 7. UML Relations
+#### UML Relationship Comparison
+
+| Relationship | UML Notation | Meaning | Ownership | Lifetime Dependency | Typical C++ Usage |
+|-------------|-------------|--------|-----------|---------------------|------------------|
+| **Inheritance** | `--|>` | “Is-a” relationship between base and derived classes | ❌ No | ❌ No | `class A : public B` |
+| **Interface Implementation** | `..|>` | Class implements an interface | ❌ No | ❌ No | `class Impl : public Interface` |
+| **Composition** | `*--` | Strong ownership (part cannot exist without whole) | ✅ Yes | ✅ Yes | RAII member objects |
+| **Aggregation** | `o--` | Weak ownership (part can exist independently) | ⚠️ Shared | ❌ No | Containers of pointers / smart pointers |
+| **Association** | `--` | General relationship / knows about | ❌ No | ❌ No | References, pointers |
+| **Dependency (Uses)** | `..>` | Temporary usage | ❌ No | ❌ No | Function parameters, return values |
+| **Enum Association** | `o--` | Class uses an enum | ❌ No | ❌ No | Enum as data member |
+
+![](./diagram/relations.jpg)
