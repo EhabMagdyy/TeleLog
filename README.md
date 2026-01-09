@@ -102,4 +102,4 @@ Instead of implementing a single class that handles multiple variations of a tas
 | **Dependency (Uses)** | `..>` | Temporary usage | ❌ No | ❌ No | Function parameters, return values |
 | **Enum Association** | `o--` | Class uses an enum | ❌ No | ❌ No | Enum as data member |
 
-![](./diagram/relations.jpg)
+![](./diagrams/relations.jpg)
