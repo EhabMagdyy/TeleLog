@@ -8,41 +8,51 @@
 #include "SocketTelemetrySourceImpl.hpp"
 #include "LogFormatter.hpp"
 #include "policies.hpp"
+#include "LogManagerBuilder.hpp"
 
-int main() {
+int main(){
     std::cout << "Log Telemetry System" << std::endl;
 
-    LogManager logMang;
-    logMang.addSink(std::make_unique<ConsoleSink>());
+    // Build the LogManager with sinks
+    auto logMang = LogManagerBuilder()
+                        .addSink(std::make_unique<ConsoleSink>())
+                        .addSink(std::make_unique<FileSink>("file.txt"))
+                        .build();
 
     // CPU via file
     FileTelemetrySourceImpl cpuSource;
-    if(cpuSource.openSource()) {
+    if(cpuSource.openSource()){
         std::string data;
-        if(cpuSource.readSource(data)) {
+        if(cpuSource.readSource(data)){
             LogFormatter<CpuPolicy> cpuFormatter;
             auto logMsgOpt = cpuFormatter.formatDataToLogMsg(data);
-            if(logMsgOpt) logMang.addLog(*logMsgOpt);
+            if(logMsgOpt){
+                logMang->addLog(*logMsgOpt);
+            }
         }
-    } else {
+    }
+    else{
         std::cerr << "Failed to open CPU telemetry source" << std::endl;
     }
 
     // RAM via socket
     SocketTelemetrySourceImpl ramSource;
-    if(ramSource.openSource()) {
+    if(ramSource.openSource()){
         std::string data;
-        if(ramSource.readSource(data)) {
+        if(ramSource.readSource(data)){
             LogFormatter<RamPolicy> ramFormatter;
             auto logMsgOpt = ramFormatter.formatDataToLogMsg(data);
-            if(logMsgOpt) logMang.addLog(*logMsgOpt);
+            if(logMsgOpt){
+                logMang->addLog(*logMsgOpt);
+            }
         }
-    } else {
+    }
+    else{
         std::cerr << "Failed to open RAM telemetry source" << std::endl;
     }
 
     // Route all logs to sinks
-    logMang.routeLogsForAllSinks();
+    logMang->routeLogsForAllSinks();
 
     return 0;
 }
