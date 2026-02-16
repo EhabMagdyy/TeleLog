@@ -103,3 +103,12 @@ Instead of implementing a single class that handles multiple variations of a tas
 | **Enum Association** | `o--` | Class uses an enum | ❌ No | ❌ No | Enum as data member |
 
 ![](./diagrams/relations.jpg)
+
+### 8. Policy
+
+A policy is a template parameter that defines rules or behavior for a generic class—in this case, LogFormatter.
+Instead of hardcoding logic for CPU, RAM, GPU, etc., a policy:
+- Encapsulates context, units, and thresholds.
+- Provides a static method to infer severity based on a value.
+- Lets LogFormatter work generically for any telemetry source.
+So the policy is a way of customizing the behavior of the formatter without modifying the formatter code itself.
