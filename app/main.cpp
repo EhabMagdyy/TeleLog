@@ -6,49 +6,42 @@
 #include "ITelemetrySource.hpp"
 #include "FileTelemetrySourceImpl.hpp"
 #include "SocketTelemetrySourceImpl.hpp"
+#include "LogFormatter.hpp"
+#include "policies.hpp"
 
-int main(){
+int main() {
     std::cout << "Log Telemetry System" << std::endl;
 
     LogManager logMang;
     logMang.addSink(std::make_unique<ConsoleSink>());
-    
-    FileTelemetrySourceImpl source;
-    if(!source.openSource()){
-        std::cerr << "Failed to open source.txt" << std::endl;
-        return 1;
-    }
-    std::string fileData;
-    if(source.readSource(fileData)){
-        fileData.push_back('%');
-        LogType type = LogType::INFO;
-        double cpuUsage = 0.0;
-        try {
-            cpuUsage = std::stod(fileData);
-        } catch(...) { cpuUsage = 0.0; }
-        if(cpuUsage > 75.0) type = LogType::WARNING;
 
-        logMang.addLog(LogMessage("SysMonitor", "CPU Usage", fileData, type));
-    }    
-
-    SocketTelemetrySourceImpl socketSource;
-    if(!socketSource.openSource()){
-        std::cerr << "Failed to open socket source" << std::endl;
-        return 1;
-    }
-    std::string socketData;
-    if(socketSource.readSource(socketData)){
-        socketData.push_back('%');
-        LogType type = LogType::INFO;
-        double cpuUsage = 0.0;
-        try {
-            cpuUsage = std::stod(socketData);
-        } catch(...) { cpuUsage = 0.0; }
-        if(cpuUsage > 75.0) type = LogType::WARNING;
-
-        logMang.addLog(LogMessage("SysMonitor", "Memory Usage", socketData, type));
+    // CPU via file
+    FileTelemetrySourceImpl cpuSource;
+    if(cpuSource.openSource()) {
+        std::string data;
+        if(cpuSource.readSource(data)) {
+            LogFormatter<CpuPolicy> cpuFormatter;
+            auto logMsgOpt = cpuFormatter.formatDataToLogMsg(data);
+            if(logMsgOpt) logMang.addLog(*logMsgOpt);
+        }
+    } else {
+        std::cerr << "Failed to open CPU telemetry source" << std::endl;
     }
 
+    // RAM via socket
+    SocketTelemetrySourceImpl ramSource;
+    if(ramSource.openSource()) {
+        std::string data;
+        if(ramSource.readSource(data)) {
+            LogFormatter<RamPolicy> ramFormatter;
+            auto logMsgOpt = ramFormatter.formatDataToLogMsg(data);
+            if(logMsgOpt) logMang.addLog(*logMsgOpt);
+        }
+    } else {
+        std::cerr << "Failed to open RAM telemetry source" << std::endl;
+    }
+
+    // Route all logs to sinks
     logMang.routeLogsForAllSinks();
 
     return 0;
