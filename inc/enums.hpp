@@ -1,0 +1,19 @@
+#pragma once
+
+enum class LogSinkType_enum{
+    CONSOLE,
+    FILE,
+    SOCKET
+};
+
+enum class SeverityLvl_enum{
+    CRITICAL,
+    WARNING,
+    INFO
+};
+
+enum class TelemetrySrc_enum{
+    CPU,
+    GPU,
+    RAM
+};
