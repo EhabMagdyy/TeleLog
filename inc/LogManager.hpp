@@ -1,11 +1,12 @@
 #pragma once
 #include "LogMessage.hpp"
 #include "ILogSink.hpp"
+#include "RingBuffer.hpp"
 #include <vector>
 #include <memory>
 
 class LogManager{
-    std::vector<LogMessage> logs;
+    RingBuffer<LogMessage> logs{20};  // will hold the most recent 20 logs
     std::vector<std::unique_ptr<ILogSink>> sinks;
 public:
     LogManager() = default;

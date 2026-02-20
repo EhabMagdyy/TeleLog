@@ -2,7 +2,7 @@
 #include "ILogSink.hpp"
 
 void LogManager::addLog(const LogMessage& log){
-    logs.push_back(log);
+    logs.tryPush(std::move(log));
 }
 
 void LogManager::addSink(std::unique_ptr<ILogSink> sink){
@@ -10,9 +10,9 @@ void LogManager::addSink(std::unique_ptr<ILogSink> sink){
 }
 
 void LogManager::routeLogsForAllSinks(){
-    for(auto& log : logs){
-        for(auto& sink: sinks){
-            sink->write(log);
-        }
+    while (auto log = logs.tryPop()) {
+    for (auto& sink : sinks) {
+        sink->write(*log);
     }
+}
 }
