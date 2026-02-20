@@ -160,3 +160,16 @@ magic_enum::enum_name(TelemetrySrc_enum::CPU); // "CPU"`
 It’s header-only and mostly constexpr
 
 No performance penalty
+
+---
+
+### 10. Ring-Buffer
+
+It's like a `circular-queue`
+
+| Feature          | Ring Buffer        | std::vector        |
+|------------------|--------------------|--------------------|
+| Memory usage     | Fixed              | Grows dynamically  |
+| Real-time safe   | ✅ Yes             | ❌ No (reallocations) |
+| Overwrites old   | Optional           | ❌ No              |
+| Embedded use     | 🔥 Very common     | Meh                |
