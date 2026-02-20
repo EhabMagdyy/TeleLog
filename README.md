@@ -26,6 +26,8 @@
 - Because you overloaded `operator<<` for `LogMessage` **on `std::ostream&`**, it **works for any output stream**.
 - **No need to duplicate formatting code** for console vs file — the same `operator<<` handles both.
 
+---
+
 ### 2. Strategy Design Pattern
 
 It is a behavioral design pattern that allows you to define a family of algorithms, encapsulate each one in a separate class, and make them interchangeable. This lets the algorithm vary independently from the clients that use it.
@@ -54,18 +56,26 @@ Instead of implementing a single class that handles multiple variations of a tas
 | **`FileSinkImpl.hpp`**    | **Concrete Strategy**        | Implements the `write` method to handle logging to a physical file. |
 | **`LogManager`**          | **Context**                  | Holds references to `ILogSink` and delegates the logging task to the active strategy. |
 
+---
+
 ### 3. `SafeFile`/`SafeSocket` Classes
 - They are purely a RAII wrapper for file descriptors/sockets. Its job is ownership management: open/socket,connect, close, move-only semantics. 
 - It should not implement higher-level logic like reading, that’s the responsibility of the telemetry source classes `FileTelemetrySourceImpl`/`SocketTelemetrySourceImpl`.
+
+---
 
 ### 4. `std::optional<SafeFile>`
 - Allows delayed initialization, so `FileTelemetrySourceImpl` can have a default constructor, satisfying Rule-of-Zero.
 - `file.emplace("source.txt")`: This constructs in-place and avoids an unnecessary move, used with std::optional
 
+---
+
 ### 5. `noexcept`
 - on move = enables optimizations and fits standard container requirements.
 - Without it, moves might silently degrade into copies in std::vector, std::map, etc.
 - Rule: If your move cannot throw, always mark it noexcept.
+
+---
 
 ### 6. UNIX Domain Socket
 ##### A mechanism for inter-process communication (IPC) on the same host, using the file system namespace instead of network addresses.
@@ -89,6 +99,8 @@ Instead of implementing a single class that handles multiple variations of a tas
   - read() / write() → communicate
   - close() → cleanup
 
+---
+
 ### 7. UML Relations
 #### UML Relationship Comparison
 
@@ -104,6 +116,8 @@ Instead of implementing a single class that handles multiple variations of a tas
 
 ![](./diagrams/relations.jpg)
 
+---
+
 ### 8. Policy
 
 A policy is a template parameter that defines rules or behavior for a generic class—in this case, LogFormatter.
@@ -112,3 +126,37 @@ Instead of hardcoding logic for CPU, RAM, GPU, etc., a policy:
 - Provides a static method to infer severity based on a value.
 - Lets LogFormatter work generically for any telemetry source.
 So the policy is a way of customizing the behavior of the formatter without modifying the formatter code itself.
+
+---
+
+### 9. `magic_enum`
+
+1. No manual mapping
+
+You don’t need to write and maintain:
+
+``` cpp
+switch (src) {
+    case TelemetrySrc_enum::CPU: return "CPU Usage";
+    ...
+}
+```
+
+`magic_enum` converts `enums` → `strings` automatically.
+
+2. Refactor-safe
+
+If you add a new enum value (e.g. DISK),
+you won’t forget to update the switch (a very common bug).
+
+3. Cleaner code
+
+``` cpp
+magic_enum::enum_name(TelemetrySrc_enum::CPU); // "CPU"`
+```
+
+4. Compile-time, zero runtime cost
+
+It’s header-only and mostly constexpr
+
+No performance penalty
