@@ -16,7 +16,7 @@ int main(){
     // Build the LogManager with sinks
     auto logMang = LogManagerBuilder()
                         .addSink(std::make_unique<ConsoleSink>())
-                        .addSink(std::make_unique<FileSink>("file.txt"))
+                        .addSink(std::make_unique<FileSink>("fileSink.txt"))
                         .build();
 
     // CPU via file

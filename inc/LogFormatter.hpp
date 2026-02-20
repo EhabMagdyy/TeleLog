@@ -32,7 +32,7 @@ public:
     // generates a message description/payload describing the received reading
     static std::string msgDescription(float val){
         std::ostringstream oss;
-        oss << std::fixed << std::setprecision(2) << val << Policy::unit << " usage";
+        oss << std::fixed << std::setprecision(2) << val << Policy::unit;
         return oss.str();
     }
     // generates the timestamp at message construction.
@@ -49,11 +49,10 @@ public:
 
 private:
     static std::string telemetryContextToString(TelemetrySrc_enum src){
-        switch (src){
-            case TelemetrySrc_enum::CPU: return "CPU Usage";
-            case TelemetrySrc_enum::GPU: return "GPU Usage";
-            case TelemetrySrc_enum::RAM: return "RAM Usage";
+        auto name = magic_enum::enum_name(src);  // "CPU", "GPU", "RAM"
+        if(name.empty()){
+            return "Unknown";
         }
-        return "Unknown";
+        return std::string(name) + " Usage";     // "CPU Usage" / "GPU Usage" / "RAM Usage"
     }
 };

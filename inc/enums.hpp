@@ -1,4 +1,5 @@
 #pragma once
+#include <magic_enum.hpp>
 
 enum class LogSinkType_enum{
     CONSOLE,

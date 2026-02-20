@@ -1,0 +1,4 @@
+2026-02-20 18:50:30 [INFO] SysMonitor - CPU Usage: 2.67%
+2026-02-20 18:50:30 [INFO] SysMonitor - RAM Usage: 41.82%
+2026-02-20 18:50:38 [INFO] SysMonitor - CPU Usage: 2.68%
+2026-02-20 18:50:38 [INFO] SysMonitor - RAM Usage: 41.77%
