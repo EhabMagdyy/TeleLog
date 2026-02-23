@@ -3,6 +3,7 @@
 #include <optional>
 #include <cstddef>
 #include <utility>
+#include <mutex>
 
 template <typename T>
 class RingBuffer{
@@ -12,6 +13,7 @@ private:
     std::size_t tail = 0;       // where the next element will be popped
     std::size_t capacity = 0;   // max number of elements the buffer can hold
     bool full = false;
+    std::mutex mtx;
 public:
     RingBuffer(size_t capacity) : buffer(capacity), capacity(capacity) {}
 
@@ -24,6 +26,8 @@ public:
     RingBuffer& operator=(RingBuffer&&) = default;
 
     bool tryPush(const T& element){
+        // locking buffer for thread safety
+        std::lock_guard<std::mutex> lock(mtx);
         if(full) {
             return false;
         }
@@ -38,6 +42,7 @@ public:
     }
 
     std::optional<T> tryPop(){
+        std::lock_guard<std::mutex> lock(mtx);
         if(head == tail && !full) {
             return std::nullopt;    // buffer is empty
         }
