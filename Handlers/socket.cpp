@@ -9,36 +9,26 @@
 
 constexpr const char* SOCKET_PATH = "/home/ehab/Documents/ITI_9Months/CppProject/sokt.sock";
 
-unsigned long parseMemInfo(const std::string& keyToFind) {
+unsigned long parseMemInfo(const std::string& keyToFind){
     std::ifstream memFile("/proc/meminfo");
-    if(!memFile.is_open()) return 0;
+    if(!memFile.is_open()) 
+        return 0;
 
     std::string line;
-    while (std::getline(memFile, line)) {
+    while(std::getline(memFile, line)){
         std::istringstream iss(line);
         std::string key;
         unsigned long value;
         std::string unit;
-        if (!(iss >> key >> value >> unit)) continue; // skip malformed lines
-        if (key == keyToFind)
+        if(!(iss >> key >> value >> unit)) 
+            continue; // skip malformed lines
+        if(key == keyToFind)
             return value;
     }
     return 0;
 }
 
-
-int main() {
-    // Get memory usage
-    unsigned long totalMem = parseMemInfo("MemTotal:");
-    unsigned long memAvailable = parseMemInfo("MemAvailable:");
-
-    if (totalMem == 0) {
-        std::cerr << "Failed to read MemTotal\n";
-        return 1;
-    }
-
-    double memUsage = 100.0 * (totalMem - memAvailable) / totalMem;
-
+int main(){
     // Create server socket
     int serverfd = socket(AF_UNIX, SOCK_STREAM, 0);
     if(serverfd == -1){
@@ -80,18 +70,32 @@ int main() {
 
     std::cout << "Client connected, sending messages..." << std::endl;
 
-    // Send some messages to the client
-    std::string msg1 = std::to_string(memUsage);
-    write(clientfd, msg1.c_str(), msg1.size());
+    while(true){
+        // Get memory usage
+        unsigned long totalMem = parseMemInfo("MemTotal:");
+        unsigned long memAvailable = parseMemInfo("MemAvailable:");
 
-    // Keep connection open a bit so client can read
-    sleep(1);
+        if(totalMem == 0){
+            std::cerr << "Failed to read MemTotal\n";
+            return 1;
+        }
 
-    // Close sockets and clean up
-    close(clientfd);
-    close(serverfd);
-    unlink(socketPath);
+        double memUsage = 100.0 * (totalMem - memAvailable) / totalMem;
 
-    std::cout << "Server done." << std::endl;
+        // Send some messages to the client
+        std::string msg1 = std::to_string(memUsage);
+        write(clientfd, msg1.c_str(), msg1.size());
+
+        // Keep connection open a bit so client can read
+        sleep(1);
+
+        // Close sockets and clean up
+        // close(clientfd);
+        // close(serverfd);
+        // unlink(socketPath);
+
+        std::cout << "Message Sent." << std::endl;
+    }
+
     return 0;
 }
