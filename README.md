@@ -6,7 +6,7 @@
 ---
 
 ## Output
-![](./output/phase3.png)
+![](./output/phase4.png)
 
 ---
 
