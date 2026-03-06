@@ -228,3 +228,52 @@ It's like a `circular-queue`
 | Real-time safe   | ✅ Yes             | ❌ No (reallocations) |
 | Overwrites old   | Optional           | ❌ No              |
 | Embedded use     | 🔥 Very common     | Meh                |
+
+---
+
+### 11. ThreadPool
+
+A **Thread Pool** is a concurrency pattern where a fixed set of worker threads is created once and reused to execute multiple tasks, rather than spawning a new thread for every task.
+
+#### - How It Works
+
+```
+push(task)
+    │
+    ▼
+[ Task Queue ] ──► Worker Thread 1
+               ──► Worker Thread 2
+               ──► Worker Thread 3
+```
+
+Tasks are submitted to a shared queue. Idle workers compete to pick them up and execute them. When a worker finishes, it goes back to waiting for the next task.
+
+#### - Core Components
+
+| Component | Role |
+|---|---|
+| `vector<thread>` | The fixed pool of reusable worker threads |
+| `queue<function<void()>>` | Pending tasks waiting to be picked up |
+| `mutex` | Protects the queue from concurrent access |
+| `condition_variable` | Puts idle workers to sleep and wakes them when work arrives |
+| `push()` | Submits a new task into the queue |
+| `stop` flag | Signals workers to exit cleanly on destruction |
+
+---
+
+#### - Advantages Over Raw Threads
+
+##### No thread creation overhead
+Creating a thread is expensive — it allocates a stack and registers with the OS. With a pool, threads are created **once** at startup and reused for every task thereafter.
+
+##### Automatic lifecycle management
+Raw threads require manual `.join()` on every thread, and forgetting one causes undefined behavior. The pool destructor handles all joins automatically in one place.
+
+##### Controlled resource usage
+Raw threads let you accidentally spawn hundreds of threads under load. The pool **caps** the number of concurrent threads, preventing resource exhaustion and excessive context switching.
+
+##### Scales easily with more tasks
+Adding a new task with raw threads means declaring a new `std::thread`, managing its lifetime, and joining it manually. With a pool, it's one `push()` call — the pool absorbs it with no extra management.
+
+##### Clean, centralized shutdown
+With raw threads, stopping everything cleanly requires careful coordination across all threads. The pool centralizes this — one `stop` flag, one `notify_all()`, one destructor.
