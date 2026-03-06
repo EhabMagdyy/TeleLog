@@ -1,5 +1,5 @@
 #include <iostream>
-#include <thread>
+#include <atomic>
 #include <condition_variable>
 #include <chrono>
 #include "ConsoleSinkImpl.hpp"
@@ -12,10 +12,12 @@
 #include "LogFormatter.hpp"
 #include "policies.hpp"
 #include "LogManagerBuilder.hpp"
+#include "ThreadPool.hpp"
 
 std::mutex mtx;
 std::condition_variable cv;
-bool newLog = false;
+bool newLog  = false;
+std::atomic<bool> running = true;   // shared stop signal for all tasks
 
 void CPU_Task(LogManager& logManager){
     static FileTelemetrySourceImpl cpuSource;
@@ -24,7 +26,7 @@ void CPU_Task(LogManager& logManager){
         return;
     }
 
-    while(true){
+    while(running){
         std::string data;
         if(cpuSource.readSource(data)){
             LogFormatter<CpuPolicy> cpuFormatter;
@@ -33,7 +35,7 @@ void CPU_Task(LogManager& logManager){
                 logManager.addLog(*logMsgOpt);
                 std::lock_guard<std::mutex> lock(mtx);
                 newLog = true;
-                cv.notify_one();  // Notify the routing thread that a new log is available
+                cv.notify_one();
             }
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
@@ -47,7 +49,7 @@ void RAM_Task(LogManager& logManager){
         return;
     }
 
-    while(true){
+    while(running){
         std::string data;
         if(ramSource.readSource(data)){
             LogFormatter<RamPolicy> ramFormatter;
@@ -64,32 +66,34 @@ void RAM_Task(LogManager& logManager){
 }
 
 void Routing_Task(LogManager& logManager){
-    while(true){
+    while(running){
         std::unique_lock<std::mutex> lck(mtx);
-        cv.wait(lck, [&logManager](){ return newLog; });  // Wait until there's a new log to route
-        newLog = false;  // Reset the flag after routing logs
-        lck.unlock();
-        logManager.routeLogsForAllSinks();
+        // wait_for so it wakes periodically to re-check `running`
+        cv.wait_for(lck, std::chrono::milliseconds(500),
+                    []{ return newLog; });
+        if(newLog){
+            newLog = false;
+            lck.unlock();
+            logManager.routeLogsForAllSinks();
+        }
     }
 }
 
 int main(){
     std::cout << "Log Telemetry System" << std::endl;
 
-    // Build the LogManager with sinks
     auto logMang = LogManagerBuilder()
                         .addSink(std::make_unique<ConsoleSink>())
                         .addSink(std::make_unique<FileSink>("fileSink.txt"))
                         .build();
 
-    
-    std::thread cpu(CPU_Task, std::ref(*logMang));
-    std::thread ram(RAM_Task, std::ref(*logMang));
-    std::thread router(Routing_Task, std::ref(*logMang));
+    ThreadPool pool(3);  // 3 workers
 
-    cpu.join();
-    ram.join();
-    router.join();
+    // Enqueue the 3 tasks, each will loop until "running" is false
+    // lambda function to Captures the logManag to pass it by reference to each task
+    pool.push([&](){ CPU_Task(*logMang); });
+    pool.push([&](){ RAM_Task(*logMang); });
+    pool.push([&](){ Routing_Task(*logMang); });
 
     return 0;
 }
