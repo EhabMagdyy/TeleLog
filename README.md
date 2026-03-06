@@ -10,6 +10,61 @@
 
 ---
 
+## ThreadPool Workflow
+```
+main thread
+│
+│  pool.push(taskA)
+│    ├─ lock queue
+│    ├─ enqueue taskA
+│    ├─ unlock queue
+│    └─ notify_one() ──────────────► one sleeping worker wakes up
+│                                         │
+│  pool.push(taskB)                       ├─ locks mutex
+│    ├─ lock queue                        ├─ sees tasks.empty() == false
+│    ├─ enqueue taskB                     ├─ pops taskA
+│    ├─ unlock queue                      ├─ unlocks mutex
+│    └─ notify_one() ──────────► another worker wakes up
+│                                    │    │
+│                                    │    └─ executes taskA()
+│                                    │         (no lock held during execution)
+│                                    │
+│                                    ├─ locks mutex
+│                                    ├─ pops taskB
+│                                    ├─ unlocks mutex
+│                                    └─ executes taskB()
+```
+
+> When stop == true
+```
+Destructor called
+│
+├─ stop = true
+└─ notify_all()
+        │
+        ├──► Worker 1 wakes
+        │       ├─ sees stop=true  →  doesn't exit yet
+        │       ├─ sees tasks.empty()==false
+        │       ├─ pops & runs taskX   ← still executes!
+        │       ├─ loops back
+        │       ├─ sees stop=true AND tasks.empty()==true
+        │       └─ returns  ✓
+        │
+        ├──► Worker 2 wakes
+        │       ├─ sees stop=true
+        │       ├─ sees tasks.empty()==false
+        │       ├─ pops & runs taskY   ← still executes!
+        │       ├─ loops back
+        │       ├─ sees stop=true AND tasks.empty()==true
+        │       └─ returns  ✓
+        │
+        └──► Worker 3 wakes
+                ├─ sees stop=true AND tasks.empty()==true (nothing left)
+                └─ returns immediately  ✓
+
+main thread: all workers joined → pool destroyed safely
+```
+
 ## Notes
 
 ### 1. `std::ostream`
