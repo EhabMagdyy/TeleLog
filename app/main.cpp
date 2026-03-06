@@ -65,12 +65,12 @@ void RAM_Task(LogManager& logManager){
     }
 }
 
+#include <csignal>
 void Routing_Task(LogManager& logManager){
     while(running){
         std::unique_lock<std::mutex> lck(mtx);
         // wait_for so it wakes periodically to re-check `running`
-        cv.wait_for(lck, std::chrono::milliseconds(500),
-                    []{ return newLog; });
+        cv.wait_for(lck, std::chrono::milliseconds(500), []{ return newLog; });
         if(newLog){
             newLog = false;
             lck.unlock();

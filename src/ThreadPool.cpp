@@ -1,5 +1,7 @@
 #include "ThreadPool.hpp"
 
+// mutex lock look in a scoope to release it after the desired operation is done
+
 // Initializes the thread pool and starts worker threads
 ThreadPool::ThreadPool(size_t numThreads) : stop(false){
     for(size_t i = 0; i < numThreads; ++i){
