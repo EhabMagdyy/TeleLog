@@ -27,7 +27,7 @@ void signalHandler(int) {
     running = false;
 }
 
-// ── helpers shared by all tasks ──────────────────────────────────────────────
+// helpers shared by all tasks
 void submitLog(LogManager& logManager, std::optional<LogMessage> logMsgOpt) {
     if (logMsgOpt) {
         logManager.addLog(*logMsgOpt);
@@ -37,7 +37,7 @@ void submitLog(LogManager& logManager, std::optional<LogMessage> logMsgOpt) {
     }
 }
 
-// ── tasks ────────────────────────────────────────────────────────────────────
+// tasks
 void CPU_Task(LogManager& logManager) {
     static FileTelemetrySourceImpl cpuSource;
     if (!cpuSource.openSource()) {
@@ -93,7 +93,7 @@ void Routing_Task(LogManager& logManager) {
     }
 }
 
-// ── main ─────────────────────────────────────────────────────────────────────
+// main
 int main() {
     std::signal(SIGINT, signalHandler);
     std::cout << "Log Telemetry System\n";
@@ -103,11 +103,11 @@ int main() {
                        .addSink(std::make_unique<FileSink>("fileSink.txt"))
                        .build();
 
-    ThreadPool pool(4);   // ← 4 workers now: CPU, RAM, GPU, Routing
+    ThreadPool pool(4);   // 4 workers: CPU, RAM, GPU, Routing
 
     pool.push([&]() { CPU_Task(*logMang);     });
     pool.push([&]() { RAM_Task(*logMang);     });
-    pool.push([&]() { GPU_Task(*logMang);     });   // ← new
+    pool.push([&]() { GPU_Task(*logMang);     });
     pool.push([&]() { Routing_Task(*logMang); });
 
     while (running)

@@ -28,6 +28,15 @@ bool SomeIPTelemetrySourceImpl::openSource() {
         return false;
     }
 
+    proxy->getNotifyGpuUsageDataChangeEvent().subscribe(
+        [this](const float gpuUsage) {
+            std::lock_guard<std::mutex> lock(cacheMtx);
+            cachedUsage = gpuUsage;
+            hasEvent.store(true);
+            std::cout << "[GPU event] received: " << gpuUsage << "%\n";
+        });
+
+    std::cout << "SomeIPTelemetrySourceImpl: subscribed to GPU events.\n";
     return true;
 }
 
@@ -35,23 +44,24 @@ bool SomeIPTelemetrySourceImpl::readSource(std::string& out) {
     if (!proxy || !proxy->isAvailable())
         return false;
 
-    CommonAPI::CallStatus callStatus;
     float usage = 0.0f;
 
-    // Synchronous method call — request/response model
-    proxy->requestGpuUsageData(callStatus, usage);
-
-    if (callStatus != CommonAPI::CallStatus::SUCCESS) {
-        std::cerr << "SomeIPTelemetrySourceImpl: call failed, status="
-                  << static_cast<int>(callStatus) << "\n";
-        return false;
+    if (hasEvent.load()) {
+        std::lock_guard<std::mutex> lock(cacheMtx);
+        usage = cachedUsage;
+    }
+    else {
+        CommonAPI::CallStatus callStatus;
+        proxy->requestGpuUsageData(callStatus, usage);
+        if (callStatus != CommonAPI::CallStatus::SUCCESS) {
+            std::cerr << "SomeIPTelemetrySourceImpl: call failed, status="
+                      << static_cast<int>(callStatus) << "\n";
+            return false;
+        }
     }
 
-    // Convert float to string to match ITelemetrySource contract
-    // LogFormatter<GpuPolicy> will call std::stof() on this
     std::ostringstream oss;
     oss << std::fixed << std::setprecision(2) << usage;
     out = oss.str();
-
     return true;
 }
