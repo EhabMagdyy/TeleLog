@@ -14,6 +14,8 @@
 #include "LogManagerBuilder.hpp"
 #include "ThreadPool.hpp"
 
+// make a some/ip client here, and the server reads the gpu
+
 std::mutex mtx;
 std::condition_variable cv;
 bool newLog  = false;

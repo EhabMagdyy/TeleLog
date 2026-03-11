@@ -1,13 +1,16 @@
 add_library(TeleLogLib
-    LogManager.cpp
-    ConsoleSinkImpl.cpp
-    FileSinkImpl.cpp
-    LogMessage.cpp
+    log/LogManager.cpp
+    sink/ConsoleSinkImpl.cpp
+    sink/FileSinkImpl.cpp
+    log/LogMessage.cpp
     SafeFile.cpp
-    FileTelemetrySourceImpl.cpp
+    source/FileTelemetrySourceImpl.cpp
     SafeSocket.cpp
-    SocketTelemetrySourceImpl.cpp
+    source/SocketTelemetrySourceImpl.cpp
     ThreadPool.cpp
 )
 
 target_include_directories(TeleLogLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../inc)
+target_include_directories(TeleLogLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../inc/sink)
+target_include_directories(TeleLogLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../inc/source)
+target_include_directories(TeleLogLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../inc/log)
