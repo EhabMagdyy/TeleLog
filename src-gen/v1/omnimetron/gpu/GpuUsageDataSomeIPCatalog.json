@@ -1,0 +1,8 @@
+{
+    "omnimetron.gpu.GpuUsageData" : {
+        "service_id": 4660,
+        "instances" : {
+            "omnimetron.gpu.GpuUsageData": 22136
+        }
+    }
+}
