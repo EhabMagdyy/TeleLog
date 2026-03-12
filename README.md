@@ -6,7 +6,109 @@
 ---
 
 ## Output
-![](./output/phase4.png)
+> https://github.com/user-attachments/assets/dd950301-7ee6-42ce-aa6f-4a629454b03b
+
+---
+
+## Design Patterns in Generated CommonAPI Files
+**GpuUsageData Interface — omnimetron.gpu**
+
+The CommonAPI code generator produces a set of files from the `.fidl` and `.fdepl` definitions. Each file has a specific architectural role, and together they embody several well-known design patterns.
+
+---
+
+### 1. Proxy Pattern
+
+Provides a surrogate object that controls access to the remote service running in a separate process.
+
+| File | Role |
+|------|------|
+| `GpuUsageDataProxyBase.hpp` | **Subject / Abstract Interface** — declares `requestGpuUsageData()` and `getNotifyGpuUsageDataChangeEvent()` as pure virtual methods |
+| `GpuUsageDataProxy.hpp` | **Proxy** — implements the Subject interface and forwards every call to the real implementation via `delegate_` |
+| `GpuUsageDataSomeIPProxy.hpp` | **Real Subject** — the concrete SomeIP implementation that serialises and sends messages over the network |
+
+`GpuUsageDataProxy` holds a `shared_ptr<GpuUsageDataProxyBase>` called `delegate_`. Every method simply forwards to it:
+
+```cpp
+void GpuUsageDataProxy::requestGpuUsageData(...) {
+    delegate_->requestGpuUsageData(...);   // forwarded to SomeIPProxy
+}
+```
+
+The client (`SomeIPTelemetrySourceImpl`) only ever sees `GpuUsageDataProxy` — it has no knowledge of SomeIP, serialisation, or the network transport.
+
+---
+
+### 2. Bridge Pattern
+
+Decouples an abstraction from its implementation so that the two can vary independently.
+
+| File | Role |
+|------|------|
+| `GpuUsageDataProxy.hpp` | **Abstraction** — the stable interface the application code depends on |
+| `GpuUsageDataProxyBase.hpp` | **Implementor** — the abstract base that any binding (SomeIP, D-Bus, …) must implement |
+| `GpuUsageDataSomeIPProxy.hpp` | **Concrete Implementor** — the SomeIP binding |
+
+`GpuUsageDataProxy` stores the implementor through a pointer-to-abstract-base (`delegate_`). Swapping the transport from SomeIP to D-Bus requires only a new Concrete Implementor — the Abstraction and all client code remain unchanged. The template parameter pack `<_AttributeExtensions...>` allows additional capability to be mixed in without modifying either side of the bridge.
+
+---
+
+### 3. Observer Pattern (Event / Broadcast)
+
+Defines a one-to-many dependency: when the subject (service) changes state, all registered observers are notified automatically.
+
+| File | Role |
+|------|------|
+| `GpuUsageDataProxyBase.hpp` | **Subject Interface** — exposes `NotifyGpuUsageDataChangeEvent` and `getNotifyGpuUsageDataChangeEvent()` |
+| `GpuUsageDataSomeIPProxy.hpp` | **Concrete Subject** — owns the SomeIP Event object that fires the notification |
+| `GpuUsageDataStub.hpp` | **Publisher** — calls `fireNotifyGpuUsageDataChangeEvent(usage)` to broadcast a new value |
+| `SomeIPTelemetrySourceImpl` | **Concrete Observer** — calls `.subscribe(lambda)` to register and react to each event |
+
+The service fires the event:
+```cpp
+service->fireNotifyGpuUsageDataChangeEvent(gpuUsage);
+```
+
+The client subscribes at startup and receives every broadcast without polling:
+```cpp
+proxy->getNotifyGpuUsageDataChangeEvent().subscribe(
+    [this](const float gpuUsage) { eventHandler(to_string(gpuUsage)); });
+```
+
+This replaces the polling loop (`requestGpuUsageData` every N seconds) with a true push model — the observer is called only when data actually changes.
+
+---
+
+### 4. Template Method Pattern
+
+Defines the skeleton of an algorithm in a base class, deferring specific steps to subclasses.
+
+| File | Role |
+|------|------|
+| `GpuUsageDataStub.hpp` | **Abstract Class** — declares `requestGpuUsageData()` as pure virtual; provides `fireNotifyGpuUsageDataChangeEvent()` as a concrete template step |
+| `GpuUsageDataStubDefault.hpp` | **Concrete Class (default)** — provides a no-op implementation of every virtual step |
+| `GpuService` (gpuService.cpp) | **Concrete Class (application)** — overrides `requestGpuUsageData()` with real GPU logic |
+
+`GpuUsageDataStubDefault` provides safe default implementations so the developer only overrides what they care about:
+
+```cpp
+class GpuService : public GpuUsageDataStubDefault {
+    void requestGpuUsageData(..., reply_t reply) override {
+        reply(randomGpuUsage());   // only this step is customised
+    }
+};
+```
+
+---
+
+### Summary
+
+| Pattern | Where | Purpose |
+|---------|-------|---------|
+| **Proxy** | `GpuUsageDataProxy` | Hides remote transport from client |
+| **Bridge** | `Proxy` + `ProxyBase` + `SomeIPProxy` | Decouples interface from binding |
+| **Observer** | `NotifyGpuUsageDataChangeEvent` | Push-based GPU event delivery |
+| **Template Method** | `GpuUsageDataStub` / `StubDefault` | Service skeleton — override only what you need |
 
 ---
 
@@ -64,6 +166,8 @@ Destructor called
 
 main thread: all workers joined → pool destroyed safely
 ```
+
+---
 
 ## Notes
 
