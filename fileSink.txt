@@ -1,533 +1,89 @@
-2026-02-20 18:50:30 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-20 18:50:30 [INFO] SysMonitor - RAM Usage: 41.82%
-2026-02-20 18:50:38 [INFO] SysMonitor - CPU Usage: 2.68%
-2026-02-20 18:50:38 [INFO] SysMonitor - RAM Usage: 41.77%
-2026-02-20 19:47:51 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-20 19:47:51 [INFO] SysMonitor - RAM Usage: 45.95%
-2026-02-21 01:32:08 [INFO] SysMonitor - RAM Usage: 47.31%
-2026-02-21 01:32:08 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:33:33 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:33:33 [INFO] SysMonitor - RAM Usage: 48.74%
-2026-02-21 01:35:55 [INFO] SysMonitor - RAM Usage: 48.83%
-2026-02-21 01:35:55 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:36:06 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:36:06 [INFO] SysMonitor - RAM Usage: 48.86%
-2026-02-21 01:36:22 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:36:22 [INFO] SysMonitor - RAM Usage: 48.27%
-2026-02-21 01:37:14 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:37:14 [INFO] SysMonitor - RAM Usage: 47.74%
-2026-02-21 01:38:56 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:38:56 [INFO] SysMonitor - RAM Usage: 48.79%
-2026-02-21 01:39:08 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:40:14 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:40:20 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:40:20 [INFO] SysMonitor - RAM Usage: 48.43%
-2026-02-21 01:40:36 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:40:44 [INFO] SysMonitor - RAM Usage: 47.65%
-2026-02-21 01:40:44 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:42:47 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:42:47 [INFO] SysMonitor - RAM Usage: 47.84%
-2026-02-21 01:46:03 [INFO] SysMonitor - RAM Usage: 48.31%
-2026-02-21 01:46:03 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:46:04 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:46:04 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:46:05 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:46:05 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:46:06 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:49:36 [INFO] SysMonitor - RAM Usage: 48.49%
-2026-02-21 01:49:36 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:49:36 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:49:37 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:49:37 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:49:38 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:49:38 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:49:39 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:49:39 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:49:58 [INFO] SysMonitor - RAM Usage: 47.95%
-2026-02-21 01:49:58 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:49:58 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:49:59 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:49:59 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:50:00 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:50:00 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:50:01 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:50:01 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:50:02 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:50:02 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:50:03 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:50:03 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:50:04 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:50:04 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:50:05 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:50:05 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:53:04 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:53:04 [INFO] SysMonitor - RAM Usage: 48.85%
-2026-02-21 01:53:05 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:53:05 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:53:06 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:53:06 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:53:07 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:53:07 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:53:08 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:53:08 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:53:09 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:53:09 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:53:10 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:53:10 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:53:11 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:53:11 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:53:12 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:53:12 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:53:13 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:53:13 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 01:53:14 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:35 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:35 [INFO] SysMonitor - RAM Usage: 48.97%
-2026-02-21 02:02:36 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:36 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:36 [INFO] SysMonitor - RAM Usage: 48.85%
-2026-02-21 02:02:37 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:37 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:37 [INFO] SysMonitor - RAM Usage: 48.82%
-2026-02-21 02:02:38 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:38 [INFO] SysMonitor - RAM Usage: 48.87%
-2026-02-21 02:02:38 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:39 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:39 [INFO] SysMonitor - RAM Usage: 48.81%
-2026-02-21 02:02:39 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:40 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:40 [INFO] SysMonitor - RAM Usage: 49.07%
-2026-02-21 02:02:40 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:41 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:41 [INFO] SysMonitor - RAM Usage: 49.04%
-2026-02-21 02:02:41 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:42 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:42 [INFO] SysMonitor - RAM Usage: 49.08%
-2026-02-21 02:02:42 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:43 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:43 [INFO] SysMonitor - RAM Usage: 48.52%
-2026-02-21 02:02:43 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:44 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:44 [INFO] SysMonitor - RAM Usage: 48.46%
-2026-02-21 02:02:44 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:45 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:45 [INFO] SysMonitor - RAM Usage: 48.40%
-2026-02-21 02:02:45 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:46 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:46 [INFO] SysMonitor - RAM Usage: 48.38%
-2026-02-21 02:02:46 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:47 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:47 [INFO] SysMonitor - RAM Usage: 48.17%
-2026-02-21 02:02:47 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:48 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:48 [INFO] SysMonitor - RAM Usage: 48.21%
-2026-02-21 02:02:48 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:49 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:49 [INFO] SysMonitor - RAM Usage: 48.21%
-2026-02-21 02:02:49 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:50 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:50 [INFO] SysMonitor - RAM Usage: 48.27%
-2026-02-21 02:02:50 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:51 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:51 [INFO] SysMonitor - RAM Usage: 48.22%
-2026-02-21 02:02:51 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:52 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:52 [INFO] SysMonitor - RAM Usage: 48.25%
-2026-02-21 02:02:52 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:53 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:53 [INFO] SysMonitor - RAM Usage: 48.25%
-2026-02-21 02:02:53 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:54 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:54 [INFO] SysMonitor - RAM Usage: 48.23%
-2026-02-21 02:02:54 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:55 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:55 [INFO] SysMonitor - RAM Usage: 48.21%
-2026-02-21 02:02:55 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:56 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:56 [INFO] SysMonitor - RAM Usage: 48.19%
-2026-02-21 02:02:56 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:57 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:57 [INFO] SysMonitor - RAM Usage: 48.21%
-2026-02-21 02:02:57 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:58 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:58 [INFO] SysMonitor - RAM Usage: 48.28%
-2026-02-21 02:02:58 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:59 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:02:59 [INFO] SysMonitor - RAM Usage: 48.22%
-2026-02-21 02:02:59 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:03:00 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:04:23 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:04:23 [INFO] SysMonitor - RAM Usage: 47.66%
-2026-02-21 02:04:24 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:04:24 [INFO] SysMonitor - RAM Usage: 47.60%
-2026-02-21 02:04:25 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:04:25 [INFO] SysMonitor - RAM Usage: 47.91%
-2026-02-21 02:04:26 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:04:26 [INFO] SysMonitor - RAM Usage: 47.96%
-2026-02-21 02:04:27 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:04:27 [INFO] SysMonitor - RAM Usage: 47.93%
-2026-02-21 02:04:28 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:04:28 [INFO] SysMonitor - RAM Usage: 47.94%
-2026-02-21 02:04:29 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:04:29 [INFO] SysMonitor - RAM Usage: 48.10%
-2026-02-21 02:04:30 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:04:30 [INFO] SysMonitor - RAM Usage: 47.88%
-2026-02-21 02:04:31 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:04:31 [INFO] SysMonitor - RAM Usage: 47.81%
-2026-02-21 02:04:32 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:04:32 [INFO] SysMonitor - RAM Usage: 47.78%
-2026-02-21 02:04:33 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:04:33 [INFO] SysMonitor - RAM Usage: 47.77%
-2026-02-21 02:04:34 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:04:34 [INFO] SysMonitor - RAM Usage: 47.80%
-2026-02-21 02:04:35 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:04:35 [INFO] SysMonitor - RAM Usage: 47.82%
-2026-02-21 02:04:36 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:04:36 [INFO] SysMonitor - RAM Usage: 48.06%
-2026-02-21 02:04:37 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:04:37 [INFO] SysMonitor - RAM Usage: 48.10%
-2026-02-21 02:04:38 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-02-21 02:04:38 [INFO] SysMonitor - RAM Usage: 48.01%
-2026-02-21 02:04:39 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:30:53 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:30:53 [INFO] SysMonitor - RAM Usage: 46.17%
-2026-03-06 02:30:54 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:30:54 [INFO] SysMonitor - RAM Usage: 46.24%
-2026-03-06 02:30:55 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:30:55 [INFO] SysMonitor - RAM Usage: 46.20%
-2026-03-06 02:30:56 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:30:56 [INFO] SysMonitor - RAM Usage: 46.20%
-2026-03-06 02:30:57 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:30:57 [INFO] SysMonitor - RAM Usage: 46.20%
-2026-03-06 02:30:58 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:30:58 [INFO] SysMonitor - RAM Usage: 46.31%
-2026-03-06 02:30:59 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:30:59 [INFO] SysMonitor - RAM Usage: 46.32%
-2026-03-06 02:31:00 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:31:00 [INFO] SysMonitor - RAM Usage: 46.48%
-2026-03-06 02:31:01 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:31:01 [INFO] SysMonitor - RAM Usage: 46.39%
-2026-03-06 02:31:02 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:31:02 [INFO] SysMonitor - RAM Usage: 46.39%
-2026-03-06 02:31:03 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:31:03 [INFO] SysMonitor - RAM Usage: 46.42%
-2026-03-06 02:33:31 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:31 [INFO] SysMonitor - RAM Usage: 46.82%
-2026-03-06 02:33:32 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:32 [INFO] SysMonitor - RAM Usage: 46.78%
-2026-03-06 02:33:33 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:33 [INFO] SysMonitor - RAM Usage: 46.86%
-2026-03-06 02:33:34 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:34 [INFO] SysMonitor - RAM Usage: 46.80%
-2026-03-06 02:33:35 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:35 [INFO] SysMonitor - RAM Usage: 46.81%
-2026-03-06 02:33:36 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:36 [INFO] SysMonitor - RAM Usage: 46.78%
-2026-03-06 02:33:37 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:37 [INFO] SysMonitor - RAM Usage: 46.78%
-2026-03-06 02:33:38 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:38 [INFO] SysMonitor - RAM Usage: 46.73%
-2026-03-06 02:33:39 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:39 [INFO] SysMonitor - RAM Usage: 46.83%
-2026-03-06 02:33:40 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:40 [INFO] SysMonitor - RAM Usage: 46.74%
-2026-03-06 02:33:41 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:41 [INFO] SysMonitor - RAM Usage: 46.82%
-2026-03-06 02:33:42 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:42 [INFO] SysMonitor - RAM Usage: 46.78%
-2026-03-06 02:33:43 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:43 [INFO] SysMonitor - RAM Usage: 46.16%
-2026-03-06 02:33:44 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:44 [INFO] SysMonitor - RAM Usage: 46.14%
-2026-03-06 02:33:45 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:45 [INFO] SysMonitor - RAM Usage: 46.35%
-2026-03-06 02:33:46 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:46 [INFO] SysMonitor - RAM Usage: 46.40%
-2026-03-06 02:33:47 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:47 [INFO] SysMonitor - RAM Usage: 46.38%
-2026-03-06 02:33:48 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:48 [INFO] SysMonitor - RAM Usage: 46.34%
-2026-03-06 02:33:49 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:49 [INFO] SysMonitor - RAM Usage: 46.43%
-2026-03-06 02:33:50 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:50 [INFO] SysMonitor - RAM Usage: 46.46%
-2026-03-06 02:33:51 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:51 [INFO] SysMonitor - RAM Usage: 45.84%
-2026-03-06 02:33:52 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:52 [INFO] SysMonitor - RAM Usage: 45.83%
-2026-03-06 02:33:53 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:53 [INFO] SysMonitor - RAM Usage: 45.70%
-2026-03-06 02:33:54 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:54 [INFO] SysMonitor - RAM Usage: 45.73%
-2026-03-06 02:33:55 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:55 [INFO] SysMonitor - RAM Usage: 45.72%
-2026-03-06 02:33:56 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:56 [INFO] SysMonitor - RAM Usage: 45.70%
-2026-03-06 02:33:57 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:57 [INFO] SysMonitor - RAM Usage: 45.71%
-2026-03-06 02:33:58 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:58 [INFO] SysMonitor - RAM Usage: 45.71%
-2026-03-06 02:33:59 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:33:59 [INFO] SysMonitor - RAM Usage: 45.66%
-2026-03-06 02:34:00 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:34:00 [INFO] SysMonitor - RAM Usage: 45.66%
-2026-03-06 02:39:31 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:39:32 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:39:33 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:39:38 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:39:39 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:39:40 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:39:41 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:39:42 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:39:43 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:39:44 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:39:45 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:39:46 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:39:46 [INFO] SysMonitor - RAM Usage: 45.03%
-2026-03-06 02:39:47 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:39:47 [INFO] SysMonitor - RAM Usage: 44.95%
-2026-03-06 02:39:48 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:39:48 [INFO] SysMonitor - RAM Usage: 44.96%
-2026-03-06 02:39:49 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:39:49 [INFO] SysMonitor - RAM Usage: 44.91%
-2026-03-06 02:39:50 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:39:50 [INFO] SysMonitor - RAM Usage: 44.86%
-2026-03-06 02:39:51 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:39:51 [INFO] SysMonitor - RAM Usage: 44.92%
-2026-03-06 02:39:52 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:39:52 [INFO] SysMonitor - RAM Usage: 44.91%
-2026-03-06 02:39:53 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:39:53 [INFO] SysMonitor - RAM Usage: 44.86%
-2026-03-06 02:39:54 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:39:54 [INFO] SysMonitor - RAM Usage: 44.80%
-2026-03-06 02:40:24 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:40:25 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:22 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:23 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:24 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:25 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:26 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:27 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:28 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:29 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:30 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:31 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:32 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:33 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:34 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:35 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:36 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:37 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:38 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:39 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:40 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:41 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:42 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:43 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:44 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:45 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:46 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:47 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:48 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:49 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:50 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:51 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:52 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:53 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:54 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:55 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:56 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:57 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:58 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:41:59 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:00 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:01 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:02 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:03 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:04 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:05 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:06 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:07 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:08 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:09 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:10 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:11 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:12 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:13 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:14 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:15 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:16 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:17 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:18 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:19 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:20 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:21 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:22 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:23 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:24 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:25 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:26 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:27 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:33 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:33 [INFO] SysMonitor - RAM Usage: 45.29%
-2026-03-06 02:42:34 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:34 [INFO] SysMonitor - RAM Usage: 45.25%
-2026-03-06 02:42:35 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:35 [INFO] SysMonitor - RAM Usage: 45.31%
-2026-03-06 02:42:36 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:36 [INFO] SysMonitor - RAM Usage: 45.30%
-2026-03-06 02:42:37 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:37 [INFO] SysMonitor - RAM Usage: 45.33%
-2026-03-06 02:42:38 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:38 [INFO] SysMonitor - RAM Usage: 45.34%
-2026-03-06 02:42:39 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:39 [INFO] SysMonitor - RAM Usage: 45.30%
-2026-03-06 02:42:40 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:40 [INFO] SysMonitor - RAM Usage: 45.26%
-2026-03-06 02:42:41 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:41 [INFO] SysMonitor - RAM Usage: 45.26%
-2026-03-06 02:42:42 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:42 [INFO] SysMonitor - RAM Usage: 45.30%
-2026-03-06 02:42:43 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:43 [INFO] SysMonitor - RAM Usage: 45.24%
-2026-03-06 02:42:44 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-06 02:42:44 [INFO] SysMonitor - RAM Usage: 45.24%
-2026-03-09 23:05:28 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-09 23:05:29 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-09 23:05:30 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-09 23:05:31 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-09 23:05:32 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-09 23:06:25 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-09 23:06:26 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-09 23:06:27 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-09 23:15:43 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-09 23:15:44 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-09 23:15:45 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:36:49 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:36:50 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:36:51 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:36:52 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:36:53 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:36:54 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:36:55 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:36:56 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:36:57 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:36:58 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:36:59 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:37:00 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:37:01 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:38:10 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:38:11 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:38:12 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:38:13 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:38:14 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:38:15 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:38:16 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:38:17 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:38:18 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:38:19 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:38:20 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:38:21 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:38:22 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:42:44 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:42:45 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:42:46 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:42:47 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:42:48 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:42:49 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:42:50 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:42:51 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:42:52 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:46:18 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:46:19 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:46:20 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:46:21 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:46:22 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:54:11 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:54:12 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:54:13 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:54:14 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:54:15 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:54:16 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:54:17 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:54:18 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:57:41 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:57:42 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:57:43 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:57:44 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:57:45 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:57:46 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:58:47 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:58:48 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 05:58:49 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:00:53 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:06:03 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:09:08 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:09:09 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:09:10 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:09:11 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:11:41 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:11:42 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:11:43 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:11:44 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:11:45 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:11:46 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:11:47 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:11:48 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:11:49 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:11:50 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:11:51 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:11:52 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:14:59 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:15:00 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:15:01 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:15:02 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:15:03 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:15:04 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:19:26 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:19:27 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:19:47 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:19:48 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:19:49 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:19:50 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:21:16 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:21:17 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:21:18 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:21:19 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:21:20 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:21:21 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:21:22 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:23:41 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:23:42 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:23:43 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:23:47 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:23:48 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:23:49 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:23:50 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:39:18 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:39:18 [INFO] SysMonitor - GPU Usage: 6.38%
-2026-03-11 06:39:19 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:39:20 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:39:21 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:39:21 [INFO] SysMonitor - GPU Usage: 10.67%
-2026-03-11 06:39:22 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:39:23 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:39:24 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:39:24 [INFO] SysMonitor - GPU Usage: 41.21%
-2026-03-11 06:39:25 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:44:50 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:44:50 [INFO] SysMonitor - GPU Usage: 50.16%
-2026-03-11 06:44:51 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:44:52 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:44:53 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:44:53 [INFO] SysMonitor - GPU Usage: 38.51%
-2026-03-11 06:44:54 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:44:55 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:44:56 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:44:56 [WARNING] SysMonitor - GPU Usage: 81.12%
-2026-03-11 06:44:57 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:44:58 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:44:59 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:44:59 [INFO] SysMonitor - GPU Usage: 15.68%
-2026-03-11 06:45:00 [INFO] SysMonitor - CPU Usage: 2.67%
-2026-03-11 06:45:01 [INFO] SysMonitor - CPU Usage: 2.67%
+2026-03-12 03:40:41 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:40:41 [GPU] [WARNING] GPU Usage: 73.93%
+2026-03-12 03:40:42 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:40:42 [GPU] [INFO] GPU Usage: 42.15%
+2026-03-12 03:40:43 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:40:44 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:40:44 [GPU] [INFO] GPU Usage: 2.92%
+2026-03-12 03:40:45 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:40:45 [GPU] [CRITICAL] GPU Usage: 93.41%
+2026-03-12 03:40:46 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:40:47 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:40:47 [GPU] [WARNING] GPU Usage: 72.02%
+2026-03-12 03:40:48 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:40:48 [GPU] [INFO] GPU Usage: 12.12%
+2026-03-12 03:40:49 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:40:50 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:40:50 [GPU] [INFO] GPU Usage: 32.77%
+2026-03-12 03:40:51 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:40:51 [GPU] [INFO] GPU Usage: 23.15%
+2026-03-12 03:40:52 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:40:53 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:45:33 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:45:33 [GPU] [INFO] GPU Usage: 32.59%
+2026-03-12 03:45:34 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:45:35 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:45:36 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:45:36 [GPU] [INFO] GPU Usage: 47.15%
+2026-03-12 03:45:36 [GPU] [INFO] GPU Usage: 35.71%
+2026-03-12 03:45:37 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:45:38 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:45:39 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:45:39 [GPU] [INFO] GPU Usage: 22.92%
+2026-03-12 03:45:39 [GPU] [INFO] GPU Usage: 0.64%
+2026-03-12 03:45:40 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:45:41 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:45:42 [GPU] [INFO] GPU Usage: 2.41%
+2026-03-12 03:45:42 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:45:42 [GPU] [CRITICAL] GPU Usage: 96.06%
+2026-03-12 03:45:43 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:45:44 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:45:45 [GPU] [WARNING] GPU Usage: 81.40%
+2026-03-12 03:48:33 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:48:33 [RAM] [INFO] RAM Usage: 50.11%
+2026-03-12 03:48:34 [GPU] [WARNING] GPU Usage: 84.79%
+2026-03-12 03:48:34 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:48:34 [RAM] [INFO] RAM Usage: 50.17%
+2026-03-12 03:48:35 [GPU] [INFO] GPU Usage: 49.08%
+2026-03-12 03:48:35 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:48:35 [RAM] [INFO] RAM Usage: 50.14%
+2026-03-12 03:48:36 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:48:37 [RAM] [INFO] RAM Usage: 50.24%
+2026-03-12 03:48:37 [GPU] [INFO] GPU Usage: 65.30%
+2026-03-12 03:48:38 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:48:38 [RAM] [INFO] RAM Usage: 50.32%
+2026-03-12 03:48:38 [GPU] [INFO] GPU Usage: 55.29%
+2026-03-12 03:48:39 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:48:39 [RAM] [INFO] RAM Usage: 50.30%
+2026-03-12 03:48:40 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:48:40 [RAM] [INFO] RAM Usage: 50.26%
+2026-03-12 03:48:40 [GPU] [INFO] GPU Usage: 30.04%
+2026-03-12 03:48:41 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:48:41 [RAM] [INFO] RAM Usage: 50.31%
+2026-03-12 03:48:41 [GPU] [INFO] GPU Usage: 69.38%
+2026-03-12 03:48:42 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:48:42 [RAM] [INFO] RAM Usage: 50.32%
+2026-03-12 03:48:43 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:48:43 [RAM] [INFO] RAM Usage: 50.25%
+2026-03-12 03:48:43 [GPU] [INFO] GPU Usage: 2.20%
+2026-03-12 03:48:44 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:48:44 [RAM] [INFO] RAM Usage: 50.24%
+2026-03-12 03:48:44 [GPU] [INFO] GPU Usage: 22.87%
+2026-03-12 03:48:45 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:48:45 [RAM] [INFO] RAM Usage: 50.26%
+2026-03-12 03:48:46 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:48:46 [RAM] [INFO] RAM Usage: 50.24%
+2026-03-12 03:48:46 [GPU] [INFO] GPU Usage: 42.69%
+2026-03-12 03:48:47 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:48:47 [RAM] [INFO] RAM Usage: 50.28%
+2026-03-12 03:48:47 [GPU] [INFO] GPU Usage: 32.11%
+2026-03-12 03:48:48 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:48:48 [RAM] [INFO] RAM Usage: 50.29%
+2026-03-12 03:48:49 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:48:49 [RAM] [INFO] RAM Usage: 50.28%
+2026-03-12 03:48:49 [GPU] [INFO] GPU Usage: 61.84%
+2026-03-12 03:48:50 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:48:50 [RAM] [INFO] RAM Usage: 50.27%
+2026-03-12 03:48:50 [GPU] [CRITICAL] GPU Usage: 91.29%
+2026-03-12 03:48:51 [CPU] [INFO] CPU Usage: 2.67%
+2026-03-12 03:48:51 [RAM] [INFO] RAM Usage: 50.38%

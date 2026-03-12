@@ -33,7 +33,7 @@ public:
         }
         // Place the element at the head & move the head forward
         buffer[head] = std::move(element);
-        head = (head + 1) % capacity;   // circular ++
+        head =(head + 1) % capacity;   // circular ++
 
         if(head == tail) {
             full = true;
@@ -49,7 +49,7 @@ public:
         // pop the element at the tail & move the tail forward
         std::optional<T> item = std::move(buffer[tail]);
         buffer[tail].reset();
-        tail = (tail + 1) % capacity;
+        tail =(tail + 1) % capacity;
         full = false;
 
         return item;

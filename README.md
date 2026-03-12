@@ -1,4 +1,4 @@
-# Telemetry & Logging System (TeleLog)
+# Telemetry & Logging System(TeleLog)
 
 ## System Architecture
 ![](./diagrams/diagram.png)
@@ -27,7 +27,7 @@ main thread
 │    └─ notify_one() ──────────► another worker wakes up
 │                                    │    │
 │                                    │    └─ executes taskA()
-│                                    │         (no lock held during execution)
+│                                    │        (no lock held during execution)
 │                                    │
 │                                    ├─ locks mutex
 │                                    ├─ pops taskB
@@ -59,7 +59,7 @@ Destructor called
         │       └─ returns  ✓
         │
         └──► Worker 3 wakes
-                ├─ sees stop=true AND tasks.empty()==true (nothing left)
+                ├─ sees stop=true AND tasks.empty()==true(nothing left)
                 └─ returns immediately  ✓
 
 main thread: all workers joined → pool destroyed safely
@@ -77,7 +77,7 @@ main thread: all workers joined → pool destroyed safely
 
 #### 	Why it's useful here?
 
-- Both `std::ofstream` (file) and `std::cout` (console) are **subclasses of `std::ostream`**.
+- Both `std::ofstream`(file) and `std::cout`(console) are **subclasses of `std::ostream`**.
 - Because you overloaded `operator<<` for `LogMessage` **on `std::ostream&`**, it **works for any output stream**.
 - **No need to duplicate formatting code** for console vs file — the same `operator<<` handles both.
 
@@ -87,18 +87,18 @@ main thread: all workers joined → pool destroyed safely
 
 It is a behavioral design pattern that allows you to define a family of algorithms, encapsulate each one in a separate class, and make them interchangeable. This lets the algorithm vary independently from the clients that use it.
 
-Instead of implementing a single class that handles multiple variations of a task using complex conditional logic (like `if-else` or `switch` statements), you delegate the task to one of several specialized strategy objects.
+Instead of implementing a single class that handles multiple variations of a task using complex conditional logic(like `if-else` or `switch` statements), you delegate the task to one of several specialized strategy objects.
 
 #### Core Components
 
-* **Strategy (Interface):** A common interface for all supported algorithms. It declares a method that the Context uses to execute a strategy.
-* **Concrete Strategies:** Classes that implement the Strategy interface using a specific algorithm (e.g., `ConsoleSink` or `FileSink` in your project).
+* **Strategy(Interface):** A common interface for all supported algorithms. It declares a method that the Context uses to execute a strategy.
+* **Concrete Strategies:** Classes that implement the Strategy interface using a specific algorithm(e.g., `ConsoleSink` or `FileSink` in your project).
 * **Context:** The class that maintains a reference to a Strategy object. It doesn't know the details of how the strategy works; it simply triggers the strategy’s method.
 
 #### Why Use It?
 
 * **Avoids Conditionals:** You can eliminate massive blocks of `if/else` or `switch` statements used to select different behaviors.
-* **Open/Closed Principle:** You can introduce new strategies (like a `DatabaseLogger`) without having to change the Context or other existing strategies.
+* **Open/Closed Principle:** You can introduce new strategies(like a `DatabaseLogger`) without having to change the Context or other existing strategies.
 * **Runtime Flexibility:** The Context can switch its behavior at any time by simply swapping the strategy object it is currently holding.
 * **Isolation:** The implementation details of an algorithm are hidden away from the code that uses it.
 
@@ -106,7 +106,7 @@ Instead of implementing a single class that handles multiple variations of a tas
 
 | **Class / File**          | **Role in Strategy Pattern** | **Description**                                              |
 | ------------------------- | ---------------------------- | ------------------------------------------------------------ |
-| **`ILogSink.hpp`**        | **Strategy Interface**       | Defines the common behavior (`write`) that all concrete strategies must implement. |
+| **`ILogSink.hpp`**        | **Strategy Interface**       | Defines the common behavior(`write`) that all concrete strategies must implement. |
 | **`ConsoleSinkImpl.hpp`** | **Concrete Strategy**        | Implements the `write` method to send output specifically to the console. |
 | **`FileSinkImpl.hpp`**    | **Concrete Strategy**        | Implements the `write` method to handle logging to a physical file. |
 | **`LogManager`**          | **Context**                  | Holds references to `ILogSink` and delegates the logging task to the active strategy. |
@@ -133,12 +133,12 @@ Instead of implementing a single class that handles multiple variations of a tas
 ---
 
 ### 6. UNIX Domain Socket
-##### A mechanism for inter-process communication (IPC) on the same host, using the file system namespace instead of network addresses.
+##### A mechanism for inter-process communication(IPC) on the same host, using the file system namespace instead of network addresses.
 ##### Key points:
 - Works only within one machine
 - Uses filesystem paths to identify endpoints, not IP addresses or ports
-- Supports stream (SOCK_STREAM) or datagram (SOCK_DGRAM) semantics
-- Faster than TCP/IP sockets for local IPC (no network stack overhead)
+- Supports stream(SOCK_STREAM) or datagram(SOCK_DGRAM) semantics
+- Faster than TCP/IP sockets for local IPC(no network stack overhead)
 ##### Typical workflow
 - For client-side:
   - socket(AF_UNIX, SOCK_STREAM, 0) → create socket
@@ -148,7 +148,7 @@ Instead of implementing a single class that handles multiple variations of a tas
 
 - For server-side:
   - socket(AF_UNIX, SOCK_STREAM, 0) → create socket
-  - bind() → bind to a path (like /tmp/telemetry.sock)
+  - bind() → bind to a path(like /tmp/telemetry.sock)
   - listen() → listen for clients
   - accept() → accept connections
   - read() / write() → communicate
@@ -163,10 +163,10 @@ Instead of implementing a single class that handles multiple variations of a tas
 |-------------|-------------|--------|-----------|---------------------|------------------|
 | **Inheritance** | `--|>` | “Is-a” relationship between base and derived classes | ❌ No | ❌ No | `class A : public B` |
 | **Interface Implementation** | `..|>` | Class implements an interface | ❌ No | ❌ No | `class Impl : public Interface` |
-| **Composition** | `*--` | Strong ownership (part cannot exist without whole) | ✅ Yes | ✅ Yes | RAII member objects |
-| **Aggregation** | `o--` | Weak ownership (part can exist independently) | ⚠️ Shared | ❌ No | Containers of pointers / smart pointers |
+| **Composition** | `*--` | Strong ownership(part cannot exist without whole) | ✅ Yes | ✅ Yes | RAII member objects |
+| **Aggregation** | `o--` | Weak ownership(part can exist independently) | ⚠️ Shared | ❌ No | Containers of pointers / smart pointers |
 | **Association** | `--` | General relationship / knows about | ❌ No | ❌ No | References, pointers |
-| **Dependency (Uses)** | `..>` | Temporary usage | ❌ No | ❌ No | Function parameters, return values |
+| **Dependency(Uses)** | `..>` | Temporary usage | ❌ No | ❌ No | Function parameters, return values |
 | **Enum Association** | `o--` | Class uses an enum | ❌ No | ❌ No | Enum as data member |
 
 ![](./diagrams/relations.jpg)
@@ -191,7 +191,7 @@ So the policy is a way of customizing the behavior of the formatter without modi
 You don’t need to write and maintain:
 
 ``` cpp
-switch (src) {
+switch(src) {
     case TelemetrySrc_enum::CPU: return "CPU Usage";
     ...
 }
@@ -201,8 +201,8 @@ switch (src) {
 
 2. Refactor-safe
 
-If you add a new enum value (e.g. DISK),
-you won’t forget to update the switch (a very common bug).
+If you add a new enum value(e.g. DISK),
+you won’t forget to update the switch(a very common bug).
 
 3. Cleaner code
 
@@ -225,7 +225,7 @@ It's like a `circular-queue`
 | Feature          | Ring Buffer        | std::vector        |
 |------------------|--------------------|--------------------|
 | Memory usage     | Fixed              | Grows dynamically  |
-| Real-time safe   | ✅ Yes             | ❌ No (reallocations) |
+| Real-time safe   | ✅ Yes             | ❌ No(reallocations) |
 | Overwrites old   | Optional           | ❌ No              |
 | Embedded use     | 🔥 Very common     | Meh                |
 

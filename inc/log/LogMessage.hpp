@@ -21,4 +21,4 @@ public:
     std::string getLogTypeString(SeverityLvl_enum severity) const;
 };
 
-std::ostream& operator<< (std::ostream& outStream, const LogMessage& log);
+std::ostream& operator<<(std::ostream& outStream, const LogMessage& log);

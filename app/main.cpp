@@ -29,7 +29,7 @@ void signalHandler(int) {
 
 // helpers shared by all tasks
 void submitLog(LogManager& logManager, std::optional<LogMessage> logMsgOpt) {
-    if (logMsgOpt) {
+    if(logMsgOpt) {
         logManager.addLog(*logMsgOpt);
         std::lock_guard<std::mutex> lock(mtx);
         newLog = true;
@@ -40,13 +40,13 @@ void submitLog(LogManager& logManager, std::optional<LogMessage> logMsgOpt) {
 // tasks
 void CPU_Task(LogManager& logManager) {
     static FileTelemetrySourceImpl cpuSource;
-    if (!cpuSource.openSource()) {
+    if(!cpuSource.openSource()) {
         std::cerr << "Failed to open CPU telemetry source.\n";
         return;
     }
-    while (running) {
+    while(running) {
         std::string data;
-        if (cpuSource.readSource(data))
+        if(cpuSource.readSource(data))
             submitLog(logManager, LogFormatter<CpuPolicy>::formatDataToLogMsg(data));
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
@@ -54,38 +54,44 @@ void CPU_Task(LogManager& logManager) {
 
 void RAM_Task(LogManager& logManager) {
     static SocketTelemetrySourceImpl ramSource;
-    if (!ramSource.openSource()) {
+    if(!ramSource.openSource()) {
         std::cerr << "Failed to open RAM telemetry source.\n";
         return;
     }
-    while (running) {
+    while(running) {
         std::string data;
-        if (ramSource.readSource(data))
+        if(ramSource.readSource(data))
             submitLog(logManager, LogFormatter<RamPolicy>::formatDataToLogMsg(data));
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
 }
 
 void GPU_Task(LogManager& logManager) {
-    static SomeIPTelemetrySourceImpl gpuSource;
-    if (!gpuSource.openSource()) {
+    // Create the singleton instance with a lambda handler that submits logs to the log manager on every incoming event
+    auto& gpuSource = SomeIPTelemetrySourceImpl::getInstance(
+        [&](std::string raw) {
+            submitLog(logManager, LogFormatter<GpuPolicy>::formatDataToLogMsg(raw));
+        }
+    );
+
+    if(!gpuSource.openSource()) {
         std::cerr << "Failed to open GPU telemetry source.\n";
         return;
     }
 
-    while (running) {
+    while(running) {
         std::string data;
-        if (gpuSource.readSource(data))
+        if(gpuSource.readSource(data))
             submitLog(logManager, LogFormatter<GpuPolicy>::formatDataToLogMsg(data));
         std::this_thread::sleep_for(std::chrono::milliseconds(3000));
     }
 }
 
 void Routing_Task(LogManager& logManager) {
-    while (running) {
+    while(running) {
         std::unique_lock<std::mutex> lck(mtx);
         cv.wait_for(lck, std::chrono::milliseconds(500), [] { return newLog; });
-        if (newLog) {
+        if(newLog) {
             newLog = false;
             lck.unlock();
             logManager.routeLogsForAllSinks();
@@ -110,7 +116,7 @@ int main() {
     pool.push([&]() { GPU_Task(*logMang);     });
     pool.push([&]() { Routing_Task(*logMang); });
 
-    while (running)
+    while(running)
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
     std::cout << "\nShutting down...\n";

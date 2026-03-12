@@ -16,13 +16,13 @@ std::string LogMessage::getLogTypeString(SeverityLvl_enum severity) const{
     return std::string(name);  // "CRITICAL", "WARNING", "INFO"
 }
 
-std::ostream& operator<< (std::ostream& outStream, const LogMessage& log){
+std::ostream& operator<<(std::ostream& outStream, const LogMessage& log){
     std::time_t t = std::chrono::system_clock::to_time_t(log.timestamp);
     std::tm tm = *std::localtime(&t);
 
-    outStream << std::put_time(&tm, "%Y-%m-%d %H:%M:%S") << " "
-              << "[" << log.getLogTypeString(log.severity) << "] "
-              << log.appName  << " - " 
+    outStream << std::put_time(&tm, "%Y-%m-%d %H:%M:%S") << " ["
+              << log.appName  << "] ["
+              << log.getLogTypeString(log.severity) << "] "
               << log.context << ": " << log.message << std::endl;
     return outStream;
 }

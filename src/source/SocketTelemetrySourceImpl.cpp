@@ -10,13 +10,13 @@ bool SocketTelemetrySourceImpl::openSource(){
     if(socketfd == -1){
         return false;
     }
-    // For Unix Domain sockets, the address is a filesystem path (not IP/port).
+    // For Unix Domain sockets, the address is a filesystem path(not IP/port).
     sockaddr_un serverAddr;
     serverAddr.sun_family = AF_UNIX;
     // filesystem path for the socket
     strncpy(serverAddr.sun_path, TELEMETRY_SOCKET_PATH, sizeof(serverAddr.sun_path)-1);
     serverAddr.sun_path[sizeof(serverAddr.sun_path)-1] = '\0';
-    if(connect(socketfd, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) == -1){
+    if(connect(socketfd,(struct sockaddr*)&serverAddr, sizeof(serverAddr)) == -1){
         close(socketfd);
         return false;
     }

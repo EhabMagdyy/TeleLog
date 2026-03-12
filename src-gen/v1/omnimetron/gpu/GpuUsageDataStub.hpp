@@ -18,7 +18,7 @@
 
 #include <v1/omnimetron/gpu/GpuUsageData.hpp>
 
-#if !defined (COMMONAPI_INTERNAL_COMPILATION)
+#if !defined(COMMONAPI_INTERNAL_COMPILATION)
 #define COMMONAPI_INTERNAL_COMPILATION
 #define HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE
 #endif
@@ -29,7 +29,7 @@
 
 #include <CommonAPI/Stub.hpp>
 
-#if defined (HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE)
+#if defined(HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE)
 #undef COMMONAPI_INTERNAL_COMPILATION
 #undef HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE
 #endif
@@ -71,9 +71,9 @@ protected:
  * defined in the IDL description for GpuUsageData.
  * For each attribute two callbacks are defined:
  * - a verification callback that allows to verify the requested value and to prevent setting
- *   e.g. an invalid value ("onRemoteSet<AttributeName>").
+ *   e.g. an invalid value("onRemoteSet<AttributeName>").
  * - an action callback to do local work after the attribute value has been changed
- *   ("onRemote<AttributeName>Changed").
+ *  ("onRemote<AttributeName>Changed").
  *
  * This class and the one below are the ones an application developer needs to have
  * a look at if he wants to implement a service.
@@ -95,19 +95,19 @@ class GpuUsageDataStub
     : public virtual CommonAPI::Stub<GpuUsageDataStubAdapter, GpuUsageDataStubRemoteEvent>
 {
 public:
-    typedef std::function<void (float _usage)> requestGpuUsageDataReply_t;
+    typedef std::function<void(float _usage)> requestGpuUsageDataReply_t;
 
     virtual ~GpuUsageDataStub() {}
     void lockInterfaceVersionAttribute(bool _lockAccess) { static_cast<void>(_lockAccess); }
     bool hasElement(const uint32_t _id) const {
-        return (_id < 2);
+        return(_id < 2);
     }
     virtual const CommonAPI::Version& getInterfaceVersion(std::shared_ptr<CommonAPI::ClientId> _client) = 0;
 
     /// Sends a broadcast event for notifyGpuUsageDataChange.
     virtual void fireNotifyGpuUsageDataChangeEvent(const float &_usage) {
         auto stubAdapter = CommonAPI::Stub<GpuUsageDataStubAdapter, GpuUsageDataStubRemoteEvent>::stubAdapter_.lock();
-        if (stubAdapter)
+        if(stubAdapter)
             stubAdapter->fireNotifyGpuUsageDataChangeEvent(_usage);
     }
     /// This is the method that will be called on remote calls on the method requestGpuUsageData.

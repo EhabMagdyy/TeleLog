@@ -44,5 +44,5 @@ void ThreadPool::push(std::function<void()> task){
         std::unique_lock<std::mutex> lock(queueMutex);  // lock the queue to add a new task
         tasks.emplace(std::move(task));     // add the task to the queue
     }
-    condition.notify_one(); // wake one sleeping thread (There is a task to work on, ya slave)
+    condition.notify_one(); // wake one sleeping thread(There is a task to work on, ya slave)
 }

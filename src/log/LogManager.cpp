@@ -10,8 +10,8 @@ void LogManager::addSink(std::unique_ptr<ILogSink> sink){
 }
 
 void LogManager::routeLogsForAllSinks(){
-    while (auto log = logs.tryPop()) {
-    for (auto& sink : sinks) {
+    while(auto log = logs.tryPop()) {
+    for(auto& sink : sinks) {
         sink->write(*log);
     }
 }

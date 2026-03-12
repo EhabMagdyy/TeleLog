@@ -13,14 +13,14 @@
 
 
 
-#if !defined (COMMONAPI_INTERNAL_COMPILATION)
+#if !defined(COMMONAPI_INTERNAL_COMPILATION)
 #define COMMONAPI_INTERNAL_COMPILATION
 #define HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE
 #endif
 
 #include <CommonAPI/Types.hpp>
 
-#if defined (HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE)
+#if defined(HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE)
 #undef COMMONAPI_INTERNAL_COMPILATION
 #undef HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE
 #endif
@@ -38,7 +38,7 @@ public:
 };
 
 const char* GpuUsageData::getInterface() {
-    return ("omnimetron.gpu.GpuUsageData:v1_0");
+    return("omnimetron.gpu.GpuUsageData:v1_0");
 }
 
 CommonAPI::Version GpuUsageData::getInterfaceVersion() {

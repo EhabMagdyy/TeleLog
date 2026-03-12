@@ -1,7 +1,7 @@
 #include "SafeSocket.hpp"
 #include <unistd.h>
 
-// its better to open the socket in a the higher level class (SocketTelemetrySourceImpl)
+// its better to open the socket in a the higher level class(SocketTelemetrySourceImpl)
 SafeSocket::SafeSocket(int sockerFd) : socketfd(sockerFd){}
 
 SafeSocket::~SafeSocket(){

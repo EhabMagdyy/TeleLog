@@ -28,7 +28,7 @@ int main(){
         return 1;
     }
     unsigned long total = user + nice + system + idle;
-    double cpuUsage = 100.0 * (user + nice + system) / total;
+    double cpuUsage = 100.0 *(user + nice + system) / total;
     
     // 3. Write CPU usage to a file
     std::string outputFile = TELEMETRY_FILE_PATH;

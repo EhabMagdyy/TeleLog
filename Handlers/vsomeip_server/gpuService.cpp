@@ -26,7 +26,7 @@ public:
 };
 
 int main(){
-    // Registering the Service -> it reads commonapi.ini to know which binding to use (in my case vsomeip))
+    // Registering the Service -> it reads commonapi.ini to know which binding to use(in my case vsomeip))
     auto runtime = CommonAPI::Runtime::get();
     // Creates your service instance on the heap wrapped in a shared_ptr 
     // CommonAPI requires shared ownership because the runtime holds a reference to it internally.
@@ -48,7 +48,7 @@ int main(){
 
     // Fire event every 3 seconds
     int counter = 0;
-    while (true) {
+    while(true) {
         std::this_thread::sleep_for(std::chrono::seconds(3));
         // generate some random gpu usage data and fire the event
         float gpuUsage = randomGpuUsage();

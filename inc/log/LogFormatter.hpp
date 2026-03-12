@@ -11,7 +11,7 @@ template <typename Policy>
 
 class LogFormatter{
 public:
-    // takes a value received from a telemetry source (float formatted as a string) and infers the severity,
+    // takes a value received from a telemetry source(float formatted as a string) and infers the severity,
     // fills in the timestamp, and constructs a full log message.
     static std::optional<LogMessage> formatDataToLogMsg(const std::string& raw){
         float val = std::stof(raw);
@@ -22,7 +22,7 @@ public:
         std::string timestamp = currentTimeStamp();
 
         return LogMessage{
-            "SysMonitor",
+            std::string(magic_enum::enum_name(Policy::context)),
             telemetryContextToString(Policy::context),
             msg,
             severity,

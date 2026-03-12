@@ -9,14 +9,14 @@
  */
 #include <v1/omnimetron/gpu/GpuUsageDataSomeIPProxy.hpp>
 
-#if !defined (COMMONAPI_INTERNAL_COMPILATION)
+#if !defined(COMMONAPI_INTERNAL_COMPILATION)
 #define COMMONAPI_INTERNAL_COMPILATION
 #define HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE
 #endif
 
 #include <CommonAPI/SomeIP/AddressTranslator.hpp>
 
-#if defined (HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE)
+#if defined(HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE)
 #undef COMMONAPI_INTERNAL_COMPILATION
 #undef HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE
 #endif
@@ -76,7 +76,7 @@ void GpuUsageDataSomeIPProxy::requestGpuUsageData(CommonAPI::CallStatus &_intern
         CommonAPI::SomeIP::method_id_t(0x1),
         false,
         false,
-        (_info ? _info : &CommonAPI::SomeIP::defaultCallInfo),
+       (_info ? _info : &CommonAPI::SomeIP::defaultCallInfo),
         _internalCallStatus,
         deploy_usage);
     _usage = deploy_usage.getValue();
@@ -98,9 +98,9 @@ std::future<CommonAPI::CallStatus> GpuUsageDataSomeIPProxy::requestGpuUsageDataA
         CommonAPI::SomeIP::method_id_t(0x1),
         false,
         false,
-        (_info ? _info : &CommonAPI::SomeIP::defaultCallInfo),
-        [_callback] (CommonAPI::CallStatus _internalCallStatus, CommonAPI::Deployable< float, CommonAPI::EmptyDeployment > _usage) {
-            if (_callback)
+       (_info ? _info : &CommonAPI::SomeIP::defaultCallInfo),
+        [_callback](CommonAPI::CallStatus _internalCallStatus, CommonAPI::Deployable< float, CommonAPI::EmptyDeployment > _usage) {
+            if(_callback)
                 _callback(_internalCallStatus, _usage.getValue());
         },
         std::make_tuple(deploy_usage));

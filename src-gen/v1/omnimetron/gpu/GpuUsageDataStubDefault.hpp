@@ -21,7 +21,7 @@
 #  if _MSC_VER >= 1300
 /*
  * Diamond inheritance is used for the CommonAPI::Proxy base class.
- * The Microsoft compiler put warning (C4250) using a desired c++ feature: "Delegating to a sister class"
+ * The Microsoft compiler put warning(C4250) using a desired c++ feature: "Delegating to a sister class"
  * A powerful technique that arises from using virtual inheritance is to delegate a method from a class in another class
  * by using a common abstract base class. This is also called cross delegation.
  */
@@ -52,7 +52,7 @@ public:
     }
 
     COMMONAPI_EXPORT const CommonAPI::Version& getInterfaceVersion(std::shared_ptr<CommonAPI::ClientId> _client) {
-        (void)_client;
+       (void)_client;
         return interfaceVersion_;
     }
 
@@ -65,7 +65,7 @@ public:
         GpuUsageDataStub::fireNotifyGpuUsageDataChangeEvent(_usage);
     }
     COMMONAPI_EXPORT virtual void requestGpuUsageData(const std::shared_ptr<CommonAPI::ClientId> _client, requestGpuUsageDataReply_t _reply) {
-        (void)_client;
+       (void)_client;
         float usage = 0.0f;
         _reply(usage);
     }

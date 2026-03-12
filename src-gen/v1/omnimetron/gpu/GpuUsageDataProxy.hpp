@@ -13,13 +13,13 @@
 #include <v1/omnimetron/gpu/GpuUsageDataProxyBase.hpp>
 
 
-#if !defined (COMMONAPI_INTERNAL_COMPILATION)
+#if !defined(COMMONAPI_INTERNAL_COMPILATION)
 #define COMMONAPI_INTERNAL_COMPILATION
 #define HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE
 #endif
 
 
-#if defined (HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE)
+#if defined(HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE)
 #undef COMMONAPI_INTERNAL_COMPILATION
 #undef HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE
 #endif
@@ -56,7 +56,7 @@ public:
     virtual bool isAvailableBlocking() const;
 
     /**
-     * Returns the wrapper class that is used to (de-)register for notifications about
+     * Returns the wrapper class that is used to(de-)register for notifications about
      * the availability of the remote partner of this proxy.
      */
     virtual CommonAPI::ProxyStatusEvent& getProxyStatusEvent();

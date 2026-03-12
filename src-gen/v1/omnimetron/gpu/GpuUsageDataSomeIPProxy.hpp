@@ -12,7 +12,7 @@
 
 #include <v1/omnimetron/gpu/GpuUsageDataProxyBase.hpp>
 
-#if !defined (COMMONAPI_INTERNAL_COMPILATION)
+#if !defined(COMMONAPI_INTERNAL_COMPILATION)
 #define COMMONAPI_INTERNAL_COMPILATION
 #define HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE
 #endif
@@ -22,7 +22,7 @@
 #include <CommonAPI/SomeIP/Types.hpp>
 #include <CommonAPI/SomeIP/Event.hpp>
 
-#if defined (HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE)
+#if defined(HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE)
 #undef COMMONAPI_INTERNAL_COMPILATION
 #undef HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE
 #endif
@@ -33,7 +33,7 @@
 #  if _MSC_VER >= 1300
 /*
  * Diamond inheritance is used for the CommonAPI::Proxy base class.
- * The Microsoft compiler put warning (C4250) using a desired c++ feature: "Delegating to a sister class"
+ * The Microsoft compiler put warning(C4250) using a desired c++ feature: "Delegating to a sister class"
  * A powerful technique that arises from using virtual inheritance is to delegate a method from a class in another class
  * by using a common abstract base class. This is also called cross delegation.
  */

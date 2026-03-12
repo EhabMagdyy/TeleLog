@@ -45,7 +45,7 @@ int main(){
     addr.sun_family = AF_UNIX;
     strncpy(addr.sun_path, socketPath, sizeof(addr.sun_path)-1);
 
-    if(bind(serverfd, (struct sockaddr*)&addr, sizeof(addr)) == -1){
+    if(bind(serverfd,(struct sockaddr*)&addr, sizeof(addr)) == -1){
         perror("bind"); 
         close(serverfd);
         return 1; 
@@ -60,7 +60,7 @@ int main(){
 
     std::cout << "Server listening on " << socketPath << std::endl;
 
-    // Accept a client (blocks until a client connects)
+    // Accept a client(blocks until a client connects)
     int clientfd = accept(serverfd, nullptr, nullptr);
     if(clientfd == -1){
         perror("accept"); 
@@ -80,7 +80,7 @@ int main(){
             return 1;
         }
 
-        double memUsage = 100.0 * (totalMem - memAvailable) / totalMem;
+        double memUsage = 100.0 *(totalMem - memAvailable) / totalMem;
 
         // Send some messages to the client
         std::string msg1 = std::to_string(memUsage);
