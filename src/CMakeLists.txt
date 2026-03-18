@@ -6,12 +6,13 @@ add_library(TeleLogLib
     sink/ConsoleSinkImpl.cpp
     sink/FileSinkImpl.cpp
     log/LogMessage.cpp
-    SafeFile.cpp
+    raiiSources/SafeFile.cpp
     source/FileTelemetrySourceImpl.cpp
-    SafeSocket.cpp
+    raiiSources/SafeSocket.cpp
     source/SocketTelemetrySourceImpl.cpp
     source/SomeIPTelemetrySourceImpl.cpp
-    ThreadPool.cpp
+    thread/ThreadPool.cpp
+    TeleLogApp.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../src-gen/v1/omnimetron/gpu/GpuUsageDataSomeIPProxy.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../src-gen/v1/omnimetron/gpu/GpuUsageDataSomeIPDeployment.cpp
 )
@@ -20,7 +21,10 @@ target_include_directories(TeleLogLib PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/../inc
     ${CMAKE_CURRENT_SOURCE_DIR}/../inc/sink
     ${CMAKE_CURRENT_SOURCE_DIR}/../inc/source
+    ${CMAKE_CURRENT_SOURCE_DIR}/../inc/raiiSources
+    ${CMAKE_CURRENT_SOURCE_DIR}/../inc/enums
     ${CMAKE_CURRENT_SOURCE_DIR}/../inc/log
+    ${CMAKE_CURRENT_SOURCE_DIR}/../inc/thread
     ${CMAKE_CURRENT_SOURCE_DIR}/../src-gen
     ${CAPICXX_CORE_RUNTIME_INC}
     ${CAPICXX_SOMEIP_RUNTIME_INC}
