@@ -52,8 +52,10 @@ int main(){
         std::this_thread::sleep_for(std::chrono::seconds(3));
         // generate some random gpu usage data and fire the event
         float gpuUsage = randomGpuUsage();
-        std::cout << "Firing notifyGpuUsageDataChange event with value: " << gpuUsage << "%" << std::endl;
-        service->fireNotifyGpuUsageDataChangeEvent(gpuUsage);
+        if(int(gpuUsage) > 80){
+            std::cout << "Firing notifyGpuUsageDataChange event with value: " << gpuUsage << "%" << std::endl;
+            service->fireNotifyGpuUsageDataChangeEvent(gpuUsage);
+        }
     }
 
     return 0;

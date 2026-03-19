@@ -5,3 +5,5 @@ source.txt
 *.out
 *.exe
 file.txt
+fileSink.txt
+sokt.sock

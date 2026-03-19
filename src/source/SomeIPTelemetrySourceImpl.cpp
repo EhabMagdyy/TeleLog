@@ -17,10 +17,10 @@ bool SomeIPTelemetrySourceImpl::openSource() {
     }
 
     // Wait up to 5 s for the service to become available
-    int retries = 50;
+    int retries = 2;
     while(!proxy->isAvailable() && retries-- > 0) {
         std::cout << "Waiting for gpuService..." << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
 
     if(!proxy->isAvailable()) {
