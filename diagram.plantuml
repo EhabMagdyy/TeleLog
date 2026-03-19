@@ -1,0 +1,464 @@
+@startuml TeleLogSystem
+
+!theme plain
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 11
+skinparam classAttributeIconSize 0
+skinparam groupInheritance 2
+skinparam nodesep 45
+skinparam ranksep 55
+skinparam wrapWidth 200
+
+' ── Global class style ────────────────────────────────────────────────────────
+skinparam class {
+    BackgroundColor          #FAFCFF
+    BorderColor              #7A9BBF
+    BorderThickness          1.5
+    HeaderBackgroundColor    #2E4057
+    HeaderFontColor          #FFFFFF
+    HeaderFontStyle          bold
+    HeaderFontSize           12
+    FontColor                #2D2D2D
+    AttributeFontSize        10
+    AttributeFontColor       #3A3A3A
+    StereotypeFontColor      #CCDDEE
+    StereotypeFontSize       10
+}
+
+skinparam interface {
+    BackgroundColor          #EAF4FF
+    BorderColor              #1F6FEB
+    BorderThickness          1.5
+    HeaderBackgroundColor    #1A5DC8
+    HeaderFontColor          #FFFFFF
+    HeaderFontStyle          bold
+    HeaderFontSize           12
+    FontColor                #1A3A6E
+    StereotypeFontColor      #AACCFF
+    StereotypeFontSize       10
+}
+
+skinparam enum {
+    BackgroundColor          #FFFBF0
+    BorderColor              #C8921A
+    BorderThickness          1.5
+    HeaderBackgroundColor    #B8780A
+    HeaderFontColor          #FFFFFF
+    HeaderFontStyle          bold
+    StereotypeFontColor      #FFE0A0
+}
+
+skinparam package {
+    FontColor                #FFFFFF
+    FontStyle                bold
+    FontSize                 13
+    BorderThickness          2
+}
+
+skinparam arrow {
+    Color                    #5A7FA8
+    FontColor                #3A5A7A
+    FontSize                 10
+    Thickness                1.5
+}
+
+skinparam note {
+    BackgroundColor          #FFFFF0
+    BorderColor              #C8C830
+    FontSize                 10
+}
+
+' ─────────────────────────────────────────────────────────────────────────────
+'  ENUMS
+' ─────────────────────────────────────────────────────────────────────────────
+enum SeverityLvl_enum {
+    CRITICAL
+    WARNING
+    INFO
+}
+
+enum TelemetrySrc_enum {
+    CPU
+    GPU
+    RAM
+}
+
+' ─────────────────────────────────────────────────────────────────────────────
+'  FAÇADE LAYER
+' ─────────────────────────────────────────────────────────────────────────────
+package "Façade Layer" #2E4057 {
+
+    class TeleLogApp <<Façade>> {
+        - mtx            : std::mutex
+        - cv             : std::condition_variable
+        - newLog         : std::atomic<bool>
+        - running        : std::atomic<bool>
+        - logManager     : shared_ptr<LogManager>
+        - pool           : unique_ptr<ThreadPool>
+        - configPath     : std::string
+        - cpuRate        : std::atomic<int>
+        - ramRate        : std::atomic<int>
+        - gpuRate        : std::atomic<int>
+        - routingRate    : std::atomic<int>
+        - cpuEnabled     : std::atomic<bool>
+        - ramEnabled     : std::atomic<bool>
+        - gpuEnabled     : std::atomic<bool>
+        - consoleSinkEnabled : std::atomic<bool>
+        - fileSinkEnabled    : std::atomic<bool>
+        - appInstance    : TeleLogApp*  {static}
+        ==
+        + TeleLogApp(configPath : string)
+        + start() : void
+        - loadConfig(path) : json
+        - applyConfig(config) : void
+        - rebuildSinks(config) : void
+        - submitLog(lm, msg) : void
+        - CPU_Task() : void
+        - RAM_Task() : void
+        - GPU_Task() : void
+        - Routing_Task() : void
+        - ConfigWatcher_Task() : void
+        - staticSignalHandler(sig) : void  {static}
+        - signalHandler(sig) : void
+    }
+}
+
+' ─────────────────────────────────────────────────────────────────────────────
+'  LOG LAYER
+' ─────────────────────────────────────────────────────────────────────────────
+package "Log Layer" #1B4D7A {
+
+    class LogManagerBuilder <<Builder>> {
+        - manager : unique_ptr<LogManager>
+        ==
+        + LogManagerBuilder()
+        + addSink(sink : unique_ptr<ILogSink>) : LogManagerBuilder&
+        + build() : unique_ptr<LogManager>
+    }
+
+    class LogManager {
+        - logs  : RingBuffer<LogMessage>  {capacity=20}
+        - sinks : vector<unique_ptr<ILogSink>>
+        ==
+        + addLog(log : const LogMessage&) : void
+        + addSink(sink : unique_ptr<ILogSink>) : void
+        + routeLogsForAllSinks() : void
+    }
+
+    class RingBuffer<T> {
+        - buffer   : vector<optional<T>>
+        - head     : size_t
+        - tail     : size_t
+        - capacity : size_t
+        - full     : bool
+        - mtx      : std::mutex
+        ==
+        + tryPush(element : const T&) : bool
+        + tryPop() : optional<T>
+    }
+
+    class LogMessage {
+        + appName   : std::string
+        + context   : std::string
+        + message   : std::string
+        + severity  : SeverityLvl_enum
+        + timestamp : system_clock::time_point
+        ==
+        + LogMessage(app, context, msg, severity, timestamp)
+        + getLogTypeString(severity) : std::string
+    }
+
+    class LogFormatter<Policy> <<Strategy>> {
+        + {static} formatDataToLogMsg(raw : string) : optional<LogMessage>
+        + {static} msgDescription(val : float) : string
+        + {static} currentTimeStamp() : string
+        - {static} telemetryContextToString(src) : string
+    }
+
+    interface ILogSink <<interface>> {
+        + write(log : const LogMessage&) : void
+    }
+
+    class ConsoleSink {
+        + write(log : const LogMessage&) : void
+    }
+
+    class FileSink {
+        - file : std::ofstream
+        ==
+        + FileSink(filePath : string, mode)
+        + write(log : const LogMessage&) : void
+    }
+}
+
+' ─────────────────────────────────────────────────────────────────────────────
+'  STRATEGY / POLICY LAYER
+' ─────────────────────────────────────────────────────────────────────────────
+package "Policy Layer  (Strategy)" #1B5E3A {
+
+    class CpuPolicy <<Strategy>> {
+        + {static} context  : TelemetrySrc_enum = CPU
+        + {static} unit     : string_view = "%"
+        + {static} WARNING  : float = 75.0
+        + {static} CRITICAL : float = 90.0
+        ==
+        + {static} inferSeverity(val) : SeverityLvl_enum
+    }
+
+    class GpuPolicy <<Strategy>> {
+        + {static} context  : TelemetrySrc_enum = GPU
+        + {static} unit     : string_view = "%"
+        + {static} WARNING  : float = 70.0
+        + {static} CRITICAL : float = 90.0
+        ==
+        + {static} inferSeverity(val) : SeverityLvl_enum
+    }
+
+    class RamPolicy <<Strategy>> {
+        + {static} context  : TelemetrySrc_enum = RAM
+        + {static} unit     : string_view = "%"
+        + {static} WARNING  : float = 80.0
+        + {static} CRITICAL : float = 95.0
+        ==
+        + {static} inferSeverity(val) : SeverityLvl_enum
+    }
+}
+
+' ─────────────────────────────────────────────────────────────────────────────
+'  TELEMETRY SOURCE LAYER
+' ─────────────────────────────────────────────────────────────────────────────
+package "Telemetry Source Layer" #4A235A {
+
+    interface ITelemetrySource <<interface>> {
+        + openSource() : bool
+        + readSource(out : std::string&) : bool
+    }
+
+    class FileTelemetrySourceImpl {
+        - file : optional<SafeFile>
+        ==
+        + openSource() : bool
+        + readSource(out : string&) : bool
+    }
+
+    class SocketTelemetrySourceImpl {
+        - socket : optional<SafeSocket>
+        ==
+        + openSource() : bool
+        + readSource(out : string&) : bool
+    }
+
+    class SomeIPTelemetrySourceImpl <<Singleton\nAdapter>> {
+        - proxy        : shared_ptr<GpuUsageDataProxy<>>
+        - eventHandler : function<void(string)>
+        ==
+        - SomeIPTelemetrySourceImpl(handler)
+        + {static} getInstance(handler) : SomeIPTelemetrySourceImpl&
+        + openSource() : bool
+        + readSource(out : string&) : bool
+    }
+}
+
+' ─────────────────────────────────────────────────────────────────────────────
+'  RAII WRAPPERS
+' ─────────────────────────────────────────────────────────────────────────────
+package "RAII Wrappers" #7A3A1A {
+
+    class SafeFile <<RAII>> {
+        - fd : int
+        ==
+        + SafeFile(path : const char*)
+        + ~SafeFile()
+        + SafeFile(SafeFile&&) noexcept
+        + operator=(SafeFile&&) noexcept
+        + getFD() : int
+    }
+
+    class SafeSocket <<RAII>> {
+        - socketfd : int
+        ==
+        + SafeSocket(socketFd : int)
+        + ~SafeSocket()
+        + SafeSocket(SafeSocket&&) noexcept
+        + operator=(SafeSocket&&) noexcept
+        + getSocketFD() : int
+    }
+}
+
+' ─────────────────────────────────────────────────────────────────────────────
+'  THREADING
+' ─────────────────────────────────────────────────────────────────────────────
+package "Threading" #1A3A5A {
+
+    class ThreadPool {
+        - workers    : vector<thread>
+        - tasks      : queue<function<void()>>
+        - queueMutex : mutex
+        - condition  : condition_variable
+        - stop       : bool
+        ==
+        + ThreadPool(numThreads : size_t)
+        + ~ThreadPool()
+        + push(task : function<void()>) : void
+    }
+}
+
+' ─────────────────────────────────────────────────────────────────────────────
+'  CommonAPI / SomeIP LAYER
+' ─────────────────────────────────────────────────────────────────────────────
+package "CommonAPI / SomeIP Layer  (generated + service)" #5A1A6A {
+
+    interface GpuUsageDataProxyBase <<generated>> {
+        + getNotifyGpuUsageDataChangeEvent() : Event<float>&
+        + requestGpuUsageData(status, usage) : void
+        + requestGpuUsageDataAsync(callback) : future<CallStatus>
+    }
+
+    class GpuUsageDataProxy <<Proxy\ngenerated>> {
+        - delegate_ : shared_ptr<GpuUsageDataProxyBase>
+        ==
+        + isAvailable() : bool
+        + getNotifyGpuUsageDataChangeEvent() : Event<float>&
+        + requestGpuUsageData(status, usage) : void
+        + requestGpuUsageDataAsync(callback) : future<CallStatus>
+    }
+
+    class GpuUsageDataStubDefault <<Template Method\ngenerated>> {
+        + requestGpuUsageData(client, reply) : void
+        + fireNotifyGpuUsageDataChangeEvent(usage) : void
+    }
+
+    class GpuService <<Service>> {
+        ==
+        + requestGpuUsageData(client, reply) : void
+        ' fires event every 3s when usage > 80%
+    }
+}
+
+' ─────────────────────────────────────────────────────────────────────────────
+'  CONFIG
+' ─────────────────────────────────────────────────────────────────────────────
+package "Configuration  (Runtime)" #3A3A1A {
+
+    class "config.json" as ConfigFile <<JSON Config>> {
+        sources.cpu.enabled      : bool
+        sources.cpu.rate_ms      : int
+        sources.ram.enabled      : bool
+        sources.ram.rate_ms      : int
+        sources.gpu.enabled      : bool
+        sources.gpu.rate_ms      : int
+        sinks.console            : bool
+        sinks.file               : bool
+        sinks.file_path          : string
+        routing_rate_ms          : int
+    }
+
+    class "json.hpp" as JsonLib <<Library\nSingle Header>> {
+        + {static} parse(file) : json
+        + operator[]() : json
+        + value(key, default) : T
+        + contains(key) : bool
+    }
+}
+
+' ─────────────────────────────────────────────────────────────────────────────
+'  RELATIONSHIPS
+' ─────────────────────────────────────────────────────────────────────────────
+
+' Façade owns everything
+TeleLogApp *--  "1"   LogManager          : owns >
+TeleLogApp *--  "1"   ThreadPool          : owns >
+TeleLogApp ..>        LogManagerBuilder   : uses >
+TeleLogApp ..>        ConfigFile          : reads >
+TeleLogApp ..>        JsonLib             : parses with >
+
+' Config file watched at runtime
+ConfigFile -[hidden]- JsonLib
+
+' Builder creates LogManager
+LogManagerBuilder ..> LogManager          : builds >
+LogManagerBuilder ..> ILogSink            : adds >
+
+' Log layer internals
+LogManager *-- "1"    RingBuffer          : owns >
+LogManager o-- "0..*" ILogSink            : manages >
+LogMessage o--        SeverityLvl_enum    : severity
+ConsoleSink  ..|>     ILogSink
+FileSink     ..|>     ILogSink
+ILogSink     ..>      LogMessage          : writes >
+
+' LogFormatter uses policies
+LogFormatter ..>      LogMessage          : produces >
+LogFormatter ..>      CpuPolicy           : parameterised by >
+LogFormatter ..>      GpuPolicy           : parameterised by >
+LogFormatter ..>      RamPolicy           : parameterised by >
+CpuPolicy    ..>      SeverityLvl_enum    : returns >
+GpuPolicy    ..>      SeverityLvl_enum    : returns >
+RamPolicy    ..>      SeverityLvl_enum    : returns >
+CpuPolicy    ..>      TelemetrySrc_enum   : context >
+GpuPolicy    ..>      TelemetrySrc_enum   : context >
+RamPolicy    ..>      TelemetrySrc_enum   : context >
+
+' Telemetry sources implement interface
+FileTelemetrySourceImpl    ..|>  ITelemetrySource
+SocketTelemetrySourceImpl  ..|>  ITelemetrySource
+SomeIPTelemetrySourceImpl  ..|>  ITelemetrySource
+
+' RAII ownership
+FileTelemetrySourceImpl   *-- "0..1" SafeFile     : owns >
+SocketTelemetrySourceImpl *-- "0..1" SafeSocket   : owns >
+
+' Adapter wraps proxy
+SomeIPTelemetrySourceImpl o-- "1" GpuUsageDataProxy : adapts >
+
+' CommonAPI internals
+GpuUsageDataProxy ..|>  GpuUsageDataProxyBase
+GpuService        --|>  GpuUsageDataStubDefault
+
+' TeleLogApp tasks use sources and formatter
+TeleLogApp ..> FileTelemetrySourceImpl   : CPU_Task >
+TeleLogApp ..> SocketTelemetrySourceImpl : RAM_Task >
+TeleLogApp ..> SomeIPTelemetrySourceImpl : GPU_Task >
+TeleLogApp ..> LogFormatter              : formats via >
+
+' ─────────────────────────────────────────────────────────────────────────────
+'  NOTES
+' ─────────────────────────────────────────────────────────────────────────────
+note right of TeleLogApp
+  <b>Design Patterns:</b>
+  • Façade — hides entire system
+  • Signal handler via static ptr
+  • ConfigWatcher polls last_write_time
+  • Atomics for lock-free rate/flag updates
+  • cv.notify wakes sleeping tasks instantly
+end note
+
+note right of SomeIPTelemetrySourceImpl
+  <b>Dual role:</b>
+  • Singleton — one vsomeip connection
+  • Adapter — CommonAPI → ITelemetrySource
+  <b>Dual data path:</b>
+  • Push: subscribe to broadcast events
+  • Pull: requestGpuUsageData() RPC
+end note
+
+note bottom of GpuService
+  Fires <i>notifyGpuUsageDataChange</i>
+  every 3s when usage > 80%
+  (Observer pattern — push to client)
+end note
+
+note right of LogManagerBuilder
+  <b>Builder pattern:</b>
+  Fluent API — addSink().addSink().build()
+  Also used in rebuildSinks()
+  on runtime config change
+end note
+
+note bottom of RingBuffer
+  Thread-safe circular buffer
+  Capacity: 20 LogMessages
+  tryPush / tryPop with internal mutex
+end note
+
+@enduml
