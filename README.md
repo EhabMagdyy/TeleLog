@@ -2,12 +2,182 @@
 
 ## System Architecture
 
-!!
+```
+┌─────────────────────────────────────────────────────────────────────────────────────┐
+│                                config.json                                          │
+│                  (enable/disable sources & sinks, set rates)                        │
+└────────────────────────────────────┬────────────────────────────────────────────────┘
+                                     │ parsed at startup & on file change
+                                     ▼
+┌─────────────────────────────────────────────────────────────────────────────────────┐
+│                      TeleLogApp  (Façade)                                           │
+│  constructor:        loads config, builds LogManager, launches ThreadPool           │
+│  start():            blocks until SIGINT, then shuts down                           │
+│  ConfigWatcher_Task: polls last_write_time → re-applies config                      │
+└────────────────────────────────────┬─────────────────────────────────────────────── ┘
+                                     │                  
+                                     ▼                  
+                              pool->push() × 5
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                          ThreadPool  (5 worker threads)                                               │
+│                                                                                                       │
+│   ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌────────────────────────┐  ┌──────────────┐  │
+│   │   CPU_Task   │  │   RAM_Task   │  │   GPU_Task   │  │  ConfigWatcher_Task    │  │ Routing_Task │  │
+│   └──────┬───────┘  └──────┬───────┘  └──────┬───────┘  └───────────┬────────────┘  └──────┬───────┘  │
+│          │                 │                 │                      │                      │          │
+│          │                 │                 │            polls last_write_time   route logs to sinks │
+│          │                 │                 │                      │                (consol/file)    │
+│          │                 │                 │                      │                                 │
+│          │                 │                 │                  config.json                           │
+└──────────┼─────────────────┼─────────────────┼────────────────────────────────────────────────────────┘
+           │                 │                 │
+           ▼                 ▼                 ▼
+  ┌──────────────┐  ┌──────────────────┐  ┌──────────────────────────────────────┐
+  │  FileTelSrc  │  │   SockTelSrc     │  │       SomeIPTelemetrySourceImpl      │
+  │  reads from  │  │  Unix domain     │  │         (Singleton + Adapter)        │
+  │    a file    │  │    socket        │  │  subscribes to SomeIP events         │
+  │              │  │                  │  │  + polls requestGpuUsageData()       │
+  │  SafeFile    │  │  SafeSocket      │  │                                      │
+  │  (RAII)      │  │  (RAII)          │  │                                      │
+  └──────┬───────┘  └──────┬───────────┘  │  GpuService fires events / replies   │
+         │                 │              └──────────────────┬───────────────────┘
+         │                 │                                 │
+         └─────────────────┘                                 │  TeleLog requests from
+                  │    (RAII)                                │  GpuService & receives
+                  │                                          │  broadcasted events 
+                  ▼                                          ▼  on warning/critical
+┌────────────────────────────────────────────────────────────────────────────────────┐
+│                        LogFormatter<Policy>  (Strategy)                            │
+│                       (CpuPolicy / RamPolicy / GpuPolicy)                          │
+│             takes raw data → infer severity → construct LogMessage                 │
+└──────────────────────────────────────┬─────────────────────────────────────────────┘
+                                       │ submitLog()
+                                       ▼
+┌────────────────────────────────────────────────────────────────────────────────────┐
+│                             LogManager  +  RingBuffer                              │
+│                    addLog() → stores logs in circular buffer                       │
+│                    notifies Routing_Task via condition_variable                    │
+└──────────────────────────────────────┬─────────────────────────────────────────────┘
+                                       │ cv.notify_one()
+                                       ▼
+┌────────────────────────────────────────────────────────────────────────────────────┐
+│                                  Routing_Task                                      │
+│                     wakes on newLog flag → routeLogsForAllSinks()                  │
+└──────────────────────┬────────────────────────────────┬─────────────────────────── ┘
+                       │                                │
+                       ▼                                ▼
+            ┌──────────────────────┐            ┌───────────────────────┐
+            │     ConsoleSink      │            │       FileSink        │
+            │  writes to stdout    │            │  appends to .txt file │
+            └──────────────────────┘            └───────────────────────┘
+```
 
 ---
 
 ## Output
-> https://github.com/user-attachments/assets/dd950301-7ee6-42ce-aa6f-4a629454b03b
+> [Demo](https://github.com/user-attachments/assets/e8c511ca-4b33-4725-9d5c-dd5b2ebc9246)
+
+---
+
+## Design Patterns
+
+### 1. Façade — `TeleLogApp`
+**What it is:** A single class that hides an entire subsystem behind a simple interface.
+
+**Why it matters:** Without it, `main.cpp` would manually wire together the `LogManager`, `ThreadPool`, all tasks, the signal handler, the config watcher, and the sink rebuild logic. Instead the entire system is expressed in two calls.
+
+**Where it's used:**
+```cpp
+TeleLogApp app("config.json");  // builds everything
+app.start();                    // runs until SIGINT
+```
+`TeleLogApp` internally manages `LogManager`, `ThreadPool`, 5 tasks, atomic config flags, and the signal handler — none of which the caller needs to know about.
+
+---
+
+### 2. Builder — `LogManagerBuilder`
+**What it is:** Constructs a complex object step by step using a fluent chaining interface, separating construction from representation.
+
+**Why it matters:** `LogManager` needs sinks configured before it starts routing logs. The Builder makes the construction readable and prevents partially-initialised `LogManager` objects from being used.
+
+**Where it's used:**
+```cpp
+auto lm = LogManagerBuilder()
+    .addSink(std::make_unique<ConsoleSink>())
+    .addSink(std::make_unique<FileSink>("fileSink.txt"))
+    .build();
+```
+Also used in `rebuildSinks()` at runtime when the config file changes.
+
+---
+
+### 3. Strategy — `CpuPolicy` / `GpuPolicy` / `RamPolicy` + `LogFormatter<Policy>`
+**What it is:** Defines a family of interchangeable algorithms (policies) that can be selected at compile time via templates.
+
+**Why it matters:** CPU, GPU, and RAM all produce a float reading and need a log message — but they have different severity thresholds, units, and context labels. The Strategy pattern captures the differences in a policy struct without duplicating `LogFormatter` logic.
+
+**Where it's used:**
+```cpp
+LogFormatter<CpuPolicy>::formatDataToLogMsg(data);  // CPU Usage, thresholds 75/90%
+LogFormatter<GpuPolicy>::formatDataToLogMsg(data);  // GPU Usage, thresholds 70/90%
+LogFormatter<RamPolicy>::formatDataToLogMsg(data);  // RAM Usage, thresholds 80/95%
+```
+Each policy provides `context`, `unit`, and `inferSeverity()`. `LogFormatter` is the algorithm; the policy is the pluggable behaviour.
+
+---
+
+### 4. Singleton — `SomeIPTelemetrySourceImpl`
+**What it is:** Ensures exactly one instance of a class exists for the entire application lifetime, with a global access point.
+
+**Why it matters:** There must be exactly one vsomeip proxy connection to the GPU service. Two instances would create two separate SomeIP connections, two event subscriptions, and duplicate log entries.
+
+**Where it's used:**
+```cpp
+static SomeIPTelemetrySourceImpl& getInstance(handler) {
+    static SomeIPTelemetrySourceImpl instance(std::move(handler)); // once, thread-safe
+    return instance;
+}
+```
+Private constructor + deleted copy/move enforce the constraint. C++11 guarantees the static local is initialised exactly once even across threads.
+
+---
+
+### 5. Adapter — `SomeIPTelemetrySourceImpl`
+**What it is:** Converts the interface of an existing class into the interface the rest of the system expects, making incompatible interfaces work together.
+
+**Why it matters:** `GpuUsageDataProxy` speaks CommonAPI — floats, `CallStatus`, event subscriptions. `ITelemetrySource` speaks `openSource()` / `readSource(string&)`. The Adapter bridges the two without modifying either.
+
+**Where it's used:** `SomeIPTelemetrySourceImpl` inherits `ITelemetrySource` and wraps `GpuUsageDataProxy` internally:
+```
+ITelemetrySource (target)        GpuUsageDataProxy (adaptee)
+openSource()          →  buildProxy() + isAvailable() + subscribe()
+readSource(string&)   →  requestGpuUsageData(CallStatus, float&)
+```
+
+---
+
+### 6. Template Method — `GpuUsageDataStub` / `GpuUsageDataStubDefault` *(generated)*
+**What it is:** Defines the skeleton of an algorithm in a base class and lets subclasses override specific steps without changing the overall structure.
+
+**Why it matters:** The generated `StubDefault` provides safe no-op implementations for every service method. You only override what you actually care about, and the rest of the lifecycle (adapter init, event dispatch, version negotiation) is inherited.
+
+**Where it's used:**
+```cpp
+class GpuService : public GpuUsageDataStubDefault {
+    void requestGpuUsageData(..., reply_t reply) override {
+        reply(randomGpuUsage());   // only this step customised
+    }
+};
+```
+
+---
+
+### 7. RAII — `SafeFile` / `SafeSocket`
+**What it is:** Resource Acquisition Is Initialisation — ties the lifetime of a resource (file descriptor, socket) to the lifetime of an object so it is always released correctly.
+
+**Why it matters:** Raw file descriptors and sockets must be closed even when exceptions occur or control paths branch unexpectedly. Wrapping them in RAII objects makes leaks structurally impossible.
+
+**Where it's used:** `FileTelemetrySourceImpl` owns a `std::optional<SafeFile>` — the file descriptor is opened in the constructor and closed automatically in the destructor, with move semantics to allow `std::optional` to hold it without copying.
 
 ---
 
@@ -15,8 +185,6 @@
 **GpuUsageData Interface — omnimetron.gpu**
 
 The CommonAPI code generator produces a set of files from the `.fidl` and `.fdepl` definitions. Each file has a specific architectural role, and together they embody several well-known design patterns.
-
----
 
 ### 1. Proxy Pattern
 
