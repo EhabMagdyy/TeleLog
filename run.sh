@@ -4,7 +4,9 @@
 export LD_LIBRARY_PATH=/usr/local/lib
 export COMMONAPI_CONFIG="$PWD/commonapi.ini"
 export COMMONAPI_DEFAULT_BINDING="someip"
-sudo ip route add 224.224.224.245 dev lo 2>/dev/null
+rm -rf /tmp/vsomeip*
+rm -rf /dev/shm/vsomeip* 
+sudo ip route add 224.244.224.245 dev eno1 2>/dev/null
 export VSOMEIP_APPLICATION_NAME="gpuClient"
 export VSOMEIP_CONFIGURATION="$PWD/vsomeip/gpuClient.json"
 

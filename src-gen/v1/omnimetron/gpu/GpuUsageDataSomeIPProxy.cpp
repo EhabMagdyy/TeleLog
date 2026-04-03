@@ -9,14 +9,14 @@
  */
 #include <v1/omnimetron/gpu/GpuUsageDataSomeIPProxy.hpp>
 
-#if !defined(COMMONAPI_INTERNAL_COMPILATION)
+#if !defined (COMMONAPI_INTERNAL_COMPILATION)
 #define COMMONAPI_INTERNAL_COMPILATION
 #define HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE
 #endif
 
 #include <CommonAPI/SomeIP/AddressTranslator.hpp>
 
-#if defined(HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE)
+#if defined (HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE)
 #undef COMMONAPI_INTERNAL_COMPILATION
 #undef HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE
 #endif
@@ -48,7 +48,7 @@ GpuUsageDataSomeIPProxy::GpuUsageDataSomeIPProxy(
     const CommonAPI::SomeIP::Address &_address,
     const std::shared_ptr<CommonAPI::SomeIP::ProxyConnection> &_connection)
         : CommonAPI::SomeIP::Proxy(_address, _connection),
-          notifyGpuUsageDataChange_(*this, 0x1b5e, CommonAPI::SomeIP::event_id_t(0x9486), CommonAPI::SomeIP::event_type_e::ET_EVENT , CommonAPI::SomeIP::reliability_type_e::RT_UNRELIABLE, false, std::make_tuple(static_cast< CommonAPI::EmptyDeployment* >(nullptr)))
+          notifyGpuUsageDataChange_(*this, 0x1b5a, CommonAPI::SomeIP::event_id_t(0x9476), CommonAPI::SomeIP::event_type_e::ET_EVENT , CommonAPI::SomeIP::reliability_type_e::RT_UNRELIABLE, false, std::make_tuple(static_cast< CommonAPI::EmptyDeployment* >(nullptr)))
 {
 }
 
@@ -73,10 +73,10 @@ void GpuUsageDataSomeIPProxy::requestGpuUsageData(CommonAPI::CallStatus &_intern
         >
     >::callMethodWithReply(
         *this,
-        CommonAPI::SomeIP::method_id_t(0x1),
+        CommonAPI::SomeIP::method_id_t(0x1770),
         false,
         false,
-       (_info ? _info : &CommonAPI::SomeIP::defaultCallInfo),
+        (_info ? _info : &CommonAPI::SomeIP::defaultCallInfo),
         _internalCallStatus,
         deploy_usage);
     _usage = deploy_usage.getValue();
@@ -95,12 +95,12 @@ std::future<CommonAPI::CallStatus> GpuUsageDataSomeIPProxy::requestGpuUsageDataA
         >
     >::callMethodAsync(
         *this,
-        CommonAPI::SomeIP::method_id_t(0x1),
+        CommonAPI::SomeIP::method_id_t(0x1770),
         false,
         false,
-       (_info ? _info : &CommonAPI::SomeIP::defaultCallInfo),
-        [_callback](CommonAPI::CallStatus _internalCallStatus, CommonAPI::Deployable< float, CommonAPI::EmptyDeployment > _usage) {
-            if(_callback)
+        (_info ? _info : &CommonAPI::SomeIP::defaultCallInfo),
+        [_callback] (CommonAPI::CallStatus _internalCallStatus, CommonAPI::Deployable< float, CommonAPI::EmptyDeployment > _usage) {
+            if (_callback)
                 _callback(_internalCallStatus, _usage.getValue());
         },
         std::make_tuple(deploy_usage));

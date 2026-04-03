@@ -5,13 +5,13 @@ define org.genivi.commonapi.someip.deployment for interface omnimetron.gpu.GpuUs
     SomeIpServiceID = 4660
 
     broadcast notifyGpuUsageDataChange {
-        SomeIpEventID = 38022
-        SomeIpEventGroups = { 7006 }
+        SomeIpEventID = 38006
+        SomeIpEventGroups = { 7002 }
         SomeIpReliable = false
     }
 
     method requestGpuUsageData {
-        SomeIpMethodID = 1
+        SomeIpMethodID = 6000
         SomeIpReliable = false
     }
 }
@@ -20,8 +20,8 @@ define org.genivi.commonapi.someip.deployment for provider as Service {
     instance omnimetron.gpu.GpuUsageData {
         InstanceId = "omnimetron.gpu.GpuUsageData"
         SomeIpInstanceID = 22136
-        SomeIpUnicastAddress = "127.0.0.1"
-        SomeIpReliableUnicastPort   = 30500
+        SomeIpUnicastAddress = "192.168.50.3"
+        SomeIpReliableUnicastPort = 30499
         SomeIpUnreliableUnicastPort = 30499
     }
 }

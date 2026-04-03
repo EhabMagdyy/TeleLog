@@ -12,7 +12,7 @@
 
 #include <v1/omnimetron/gpu/GpuUsageDataStub.hpp>
 
-#if !defined(COMMONAPI_INTERNAL_COMPILATION)
+#if !defined (COMMONAPI_INTERNAL_COMPILATION)
 #define COMMONAPI_INTERNAL_COMPILATION
 #define HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE
 #endif
@@ -24,7 +24,7 @@
 #include <CommonAPI/SomeIP/Types.hpp>
 #include <CommonAPI/SomeIP/Constants.hpp>
 
-#if defined(HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE)
+#if defined (HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE)
 #undef COMMONAPI_INTERNAL_COMPILATION
 #undef HAS_DEFINED_COMMONAPI_INTERNAL_COMPILATION_HERE
 #endif
@@ -82,12 +82,12 @@ public:
             std::make_tuple(static_cast< CommonAPI::EmptyDeployment* >(nullptr)))
         
     {
-        GpuUsageDataSomeIPStubAdapterHelper::addStubDispatcher( { CommonAPI::SomeIP::method_id_t(0x1) }, &requestGpuUsageDataStubDispatcher );
+        GpuUsageDataSomeIPStubAdapterHelper::addStubDispatcher( { CommonAPI::SomeIP::method_id_t(0x1770) }, &requestGpuUsageDataStubDispatcher );
         // Provided events/fields
         {
             std::set<CommonAPI::SomeIP::eventgroup_id_t> itsEventGroups;
-            itsEventGroups.insert(CommonAPI::SomeIP::eventgroup_id_t(0x1b5e));
-            CommonAPI::SomeIP::StubAdapter::registerEvent(CommonAPI::SomeIP::event_id_t(0x9486), itsEventGroups, CommonAPI::SomeIP::event_type_e::ET_EVENT, CommonAPI::SomeIP::reliability_type_e::RT_UNRELIABLE);
+            itsEventGroups.insert(CommonAPI::SomeIP::eventgroup_id_t(0x1b5a));
+            CommonAPI::SomeIP::StubAdapter::registerEvent(CommonAPI::SomeIP::event_id_t(0x9476), itsEventGroups, CommonAPI::SomeIP::event_type_e::ET_EVENT, CommonAPI::SomeIP::reliability_type_e::RT_UNRELIABLE);
         }
     }
 
@@ -103,7 +103,7 @@ void GpuUsageDataSomeIPStubAdapterInternal<_Stub, _Stubs...>::fireNotifyGpuUsage
     >>
         ::sendEvent(
             *this,
-            CommonAPI::SomeIP::event_id_t(0x9486),
+            CommonAPI::SomeIP::event_id_t(0x9476),
             false,
             _usage
     );

@@ -75,7 +75,63 @@
 ---
 
 ## Output
-> [Demo](https://github.com/user-attachments/assets/e8c511ca-4b33-4725-9d5c-dd5b2ebc9246)
+> [Demo Video](https://github.com/user-attachments/assets/e8c511ca-4b33-4725-9d5c-dd5b2ebc9246)
+
+---
+![RPi VSOME/IP GPU](output/rpi-gpu-vsomeip.png)
+
+---
+
+## Build & Run
+
+### 1. Generate capi vsome/ip files
+``` bash
+ccgen -sk vsomeip/gpu.fidl
+csgen vsomeip/gpu.fdepl
+# Note:
+# alias ccgen='~/Downloads/commonapi_core_generator/commonapi-core-generator-linux-x86_64'
+# alias csgen='~/Downloads/commonapi_someip_generator/commonapi-someip-generator-linux-x86_64'
+```
+
+### 2. Build the application
+``` bash
+cmake -S . -B build
+cmake --build build
+```
+
+### 3. Cross build the capi vsome/ip gpu service
+``` bash 
+cd Handlers/vsomeip_server/
+mkdir build-rpi && cd build-rpi
+
+cmake \
+    -DCMAKE_TOOLCHAIN_FILE=~/rpi-toolchain.cmake \
+    -DCommonAPI_DIR=~/rpi-sysroot/usr/lib/cmake/CommonAPI-3.2.4 \
+    -DCommonAPI-SomeIP_DIR=~/rpi-sysroot/usr/lib/cmake/CommonAPI-SomeIP-3.2.4 \
+    -Dvsomeip3_DIR=~/rpi-sysroot/usr/lib/cmake/vsomeip3 \
+    ..
+
+make -j$(nproc)
+
+scp /home/ehab/Documents/ITI_9Months/CppProject/Handlers/vsomeip_server/build-rpi/gpuService pi@192.168.50.3:
+```
+
+#### 4. on Host, run RAM Socket
+``` bash
+cd Handlers/
+g++ socket.cpp -o socket.exe
+./socket.exe
+```
+
+### 5. on RPi, run service script
+``` bash
+./runService.sh
+```
+
+### 6. on Host, run app (client)
+``` bash
+./run.sh
+```
 
 ---
 

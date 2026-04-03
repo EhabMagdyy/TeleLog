@@ -2,11 +2,11 @@
     "app_name": "[TeleLog] Log Telemetry System",
     "sources": {
         "cpu": {
-            "enabled": false,
+            "enabled": true,
             "rate_ms": 1000
         },
         "ram": {
-            "enabled": false,
+            "enabled": true,
             "rate_ms": 1000
         },
         "gpu": {

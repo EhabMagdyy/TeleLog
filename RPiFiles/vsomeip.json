@@ -1,24 +1,23 @@
 {
-    "unicast": "192.168.50.1",
+    "unicast": "192.168.50.3",
     "logging": {
-        "level": "none",
-        "console": "false"
+        "level": "debug",
+        "console": "true"
     },
     "applications": [
         {
-            "name": "gpuClient",
-            "id": "0x2222"
+            "name": "Service",
+            "id": "0x1111"
         }
     ],
     "services": [
         {
             "service": "0x1234",
             "instance": "0x5678",
-            "unicast": "192.168.50.3",
             "unreliable": "30499"
         }
     ],
-    "routing": "gpuClient",
+    "routing": "Service",
     "service-discovery": {
         "enable": "true",
         "protocol": "udp",
