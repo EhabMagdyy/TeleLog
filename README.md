@@ -133,6 +133,19 @@ g++ socket.cpp -o socket.exe
 ./run.sh
 ```
 
+### Troubleshooting
+#### RPi Multicast not reaching Host 
+
+- Run this on your host while the service is running on the RPi to check if the multicast packets are reaching the host:
+    ``` bash
+    sudo tcpdump -i eno1 udp port 30490 -v
+    ```
+
+- if No packets appear at all => the RPi's multicast SD packets aren't reaching eno1. Fix on the RPi:
+    ``` bash
+    sudo ip route add 224.244.224.245 dev eth0      # This will allow the RPi to send multicast packets to the host
+    ```
+
 ---
 
 ## Design Patterns
